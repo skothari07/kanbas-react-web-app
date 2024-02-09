@@ -24,6 +24,7 @@ border-left: 2px solid green;
 }
 .wd-modules > li {
 margin-bottom: 20px;
+padding: 0px;
 }
 
 .wd-modules-sublist-padding {
@@ -45,3 +46,8 @@ padding-left: 25px;
     width: 100%;
 }
 
+.wd-modules-course-status {
+    background-color: lightgray;
+    border: 1px solid gray !important;
+    border-radius: 0%;
+}
