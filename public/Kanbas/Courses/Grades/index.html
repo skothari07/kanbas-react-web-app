@@ -6,6 +6,221 @@
     <title>Grades</title>
 </head>
 <body>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">CS5610 Spring 2024 Section 7</a></li>
+          <li class="breadcrumb-item" aria-current="page">Grades</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex justify-content-end mb-3">
+        <button class="wd-grades-btn"><i class="fa fa-upload"></i> Import</button>
+        <span class="wd-grades-btn">
+            <i class="fa fa-download"></i>
+            <select>
+                <option selected>Export</option>
+                <option>...</option>
+            </select>
+        </span>
+        <button class="wd-grades-btn"><i class="fa fa-cog"></i></button>
+    </div>
+
+    <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputStudentNames"><b>Student Names</b></label>
+            <select id="inputStudentNames" class="form-control">
+                <option selected>Search Students</option>
+                <option>...</option>
+              </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputAssignmentsNames"><b>Assignments Names</b></label>
+            <select id="inputAssignmentsNames" class="form-control">
+                <option selected>Search Assignments</option>
+                <option>...</option>
+              </select>
+          </div>
+        </div>
+    </form>
+
+    <div class="d-flex mt-3 mb-3"><button><i class="fa fa-filter"></i> Apply Filters</button></div>
     
+    
+    <div class="table-responsive">
+        <table class="table table-striped wd-grades-table" border="1">
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2">Student name</th>
+                    <th scope="col">A1 SETUP</th>
+                    <th scope="col">A2 HTML</th>
+                    <th scope="col">A3 CSS</th>
+                    <th scope="col">A4 BOOTSTRAP</th>
+                    <th scope="col">A5 JAVASCRIPT</th>
+                    <th scope="col">A6 REACT</th>
+                    <th scope="col">A7 REDUX</th>
+                    <th scope="col">A8 NODE</th>
+                    <th scope="col">A9 MONGO</th>
+                </tr>
+                <tr>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                    <td>Out of 100</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Alice Wonderland</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">100</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Princess Leia</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Luke Skywalker</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">95</td>
+                </tr>
+                <tr>
+                    <td scope="row">Han Solo</td>
+                    <td class="editable-cell" contenteditable="true">98</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Lando Calresian</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">99</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Boba Fet</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">70</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Darth Vader</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">88</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Obi-Wan Kenobi</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">95</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">R2-D2</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">100</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">c-3PO</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Yoda</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">87</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+                <tr>
+                    <td scope="row">Admiral Ackbar</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">94</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                    <td class="editable-cell" contenteditable="true">92</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
