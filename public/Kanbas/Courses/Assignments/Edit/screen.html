@@ -8,109 +8,153 @@
     <link rel="stylesheet" href="/Kanbas/Navigation/index.css" />
     <link rel="stylesheet" href="/Kanbas/Courses/Navigation/index.css" />
     <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Kanbas/Courses/Assignments/index.css" />
+    <link rel="stylesheet" href="/Kanbas/Courses/Assignments//Edit/index.css" />
+
 </head>
 <body>
-    <table>
-        <tbody>
-            <tr>
-                <td valign="top">
-                    <ul class="wd-kanbas-navigation">
-                        <li><a href="http://northeastern.edu">N</a></li>
-                        <li><a href="/Kanbas/Account/Profile/screen.html"><i class="fa fa-user" style="color: white"></i><br>Account</a></li>
-                        <li><a href="/Kanbas/Dashboard/screen.html"><i class="fa fa-tachometer"></i><br>Dashboard</a></li>
-                        <li class="wd-active"><a href="/Kanbas/Courses/Home/screen.html"><i class="fa fa-book"></i><br>Courses</a></li>
-                        <li><a href="#"><i class="fa fa-calendar"></i><br>Calendar</a></li>
-                        <li><a href="#"><i class="fa fa-inbox"></i><br>Inbox</a></li>
-                        <li><a href="#"><i class="fa fa-clock-o"></i><br>History</a></li>
-                        <li><a href="#"><i class="fa fa-caret-square-o-right"></i><br>Studio</a></li>
-                        <li><a href="#"><i class="fa fa-podcast fa-rotate-270"></i><br>Commons</a></li>
-                        <li><a href="#"><i class="fa fa-question-circle-o"></i><br>Help</a></li>
-                    </ul>
-                </td>
-                <td valign="top">
-                    <ul class="wd-navigation">
-                        <li><a href="/Kanbas/Courses/Home/screen.html">Home</a></li>
-                        <li><a href="/Kanbas/Courses/Modules/screen.html">Modules</a></li>
-                        <li><a href="https://piazza.com">Piazza</a></li>
-                        <li><a href="#">Zoom Meetings</a></li>
-                        <li class="wd-active"><a href="/Kanbas/Courses/Assignments/screen.html">Assignments</a></li>
-                        <li><a href="#">Quizzes</a></li>
-                        <li><a href="/Kanbas/Courses/Grades/screen.html">Grades</a></li>
-                        <li><a href="#">People</a></li>
-                        <li><a href="#">Panopto Video</a></li>
-                        <li><a href="#">Discussions</a></li>
-                        <li><a href="#">Announcements</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li><a href="#">Files</a></li>
-                        <li><a href="#">Rubrics</a></li>
-                        <li><a href="#">Outcomes</a></li>
-                        <li><a href="#">Collaborations</a></li>
-                        <li><a href="#">Syllabus</a></li>
-                        <li><a href="/Kanbas/Courses/Settings/courseDetails/screen.html">Settings</a></li>
-                    </ul>
-                </td>
-                <td valign="top">
-                    <select>
-                        <option>Speed Grader</option>
-                    </select>
-                    <hr>
-                    <form action="/Kanbas/Courses/Assignments/screen.html">
-                        <label for="wd-assignment-name">Assignment Name</label><br/>
-                        <input type="text" id="wd-assignment-name" value="A1 - ENV + HTML" /><br /><br />
-                
-                        <textarea row="10" cols="30">This is the assignment description.</textarea><br /><br />
-                
-                        <label for="wd-points">Points</label><br/>
-                        <input type="number" id="wd-points" min="0" max="100" value="100" /><br /><br />
-                
-                        <label for="wd-assignment-group">Assignment Group</label><br/>
-                        <select id="wd-assignment-group">
-                            <option>ASSIGNMENTS</option>
-                        </select><br /><br />
-                
-                        <label for="wd-display-grade-as">Display Grade as</label><br/>
-                        <select id="wd-display-grade-as">
-                            <option>Percentage</option>
-                        </select><br /><br />
-                
-                        <label for="wd-submission-type">Submission Type</label><br/>
-                        <select id="wd-submission-type">
-                            <option>Online</option>
-                            <option>Pen and paper</option>
-                        </select><br /><br />
-                
-                        <label>Online Entry Options</label><br/>
-                        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-text-entry" value="TEXT ENTRY" />
-                        <label for="wd-cb-text-entry">Text Entry</label><br />
-                        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-website-URL" value="WEBSITE URL" />
-                        <label for="wd-cb-website-URL">Website URL</label><br />
-                        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-media-recordings" value="MEDIA RECORDINGS" />
-                        <label for="wd-cb-media-recordings">Media Recordings</label><br />
-                        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-student-annotations" value="STUDENT ANNOTATIONS" />
-                        <label for="wd-cb-student-annotations">Student Annotations</label><br />
-                        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-file-upload" value="FILE UPLOAD" />
-                        <label for="wd-cb-file-upload">File Upload</label><br /><br />
-                
-                        <label>Assign</label><br />
-                        <label for="wd-assign-to">Assign to</label><br />
-                        <input type="text" id="wd-assign-to" value="Everyone" /><br /><br />
-                
-                        <label for="wd-due-date">Due</label><br />
-                        <input type="date" id="wd-due-date" value="2021-01-01" /><br /><br />
-                
-                        <label for="wd-available-from">Available from</label><br />
-                        <input type="date" id="wd-available-from" value="2021-01-01" /><br /><br />
-                
-                        <label for="wd-available-until">Until</label><br />
-                        <input type="date" id="wd-available-until" value="2021-01-01" /><br /><br />
-                
+    <div class="d-flex">
+        <div class="d-none d-md-block">
+            <ul class="wd-kanbas-navigation">
+                <li><a href="http://northeastern.edu">N</a></li>
+                <li><a href="/Kanbas/Account/Profile/screen.html"><i class="fa fa-user" style="color: white"></i><br>Account</a></li>
+                <li><a href="/Kanbas/Dashboard/screen.html"><i class="fa fa-tachometer"></i><br>Dashboard</a></li>
+                <li class="wd-active"><a href="/Kanbas/Courses/Home/screen.html"><i class="fa fa-book"></i><br>Courses</a></li>
+                <li><a href="#"><i class="fa fa-calendar"></i><br>Calendar</a></li>
+                <li><a href="#"><i class="fa fa-inbox"></i><br>Inbox</a></li>
+                <li><a href="#"><i class="fa fa-clock-o"></i><br>History</a></li>
+                <li><a href="#"><i class="fa fa-caret-square-o-right"></i><br>Studio</a></li>
+                <li><a href="#"><i class="fa fa-podcast fa-rotate-270"></i><br>Commons</a></li>
+                <li><a href="#"><i class="fa fa-question-circle-o"></i><br>Help</a></li>
+            </ul>
+        </div>
+        <div class="d-none d-md-block">
+            <ul class="wd-navigation">
+                <li><a href="/Kanbas/Courses/Home/screen.html">Home</a></li>
+                <li><a href="/Kanbas/Courses/Modules/screen.html">Modules</a></li>
+                <li><a href="https://piazza.com">Piazza</a></li>
+                <li><a href="#">Zoom Meetings</a></li>
+                <li class="wd-active"><a href="/Kanbas/Courses/Assignments/screen.html">Assignments</a></li>
+                <li><a href="#">Quizzes</a></li>
+                <li><a href="/Kanbas/Courses/Grades/screen.html">Grades</a></li>
+                <li><a href="#">People</a></li>
+                <li><a href="#">Panopto Video</a></li>
+                <li><a href="#">Discussions</a></li>
+                <li><a href="#">Announcements</a></li>
+                <li><a href="#">Pages</a></li>
+                <li><a href="#">Files</a></li>
+                <li><a href="#">Rubrics</a></li>
+                <li><a href="#">Outcomes</a></li>
+                <li><a href="#">Collaborations</a></li>
+                <li><a href="#">Syllabus</a></li>
+                <li><a href="/Kanbas/Courses/Settings/courseDetails/screen.html">Settings</a></li>
+            </ul>
+        </div>
+        <div class="flex-fill">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">CS5610 Spring 2024 Section 7</a></li>
+                  <li class="breadcrumb-item" aria-current="page">Assignments</li>
+                  <li class="breadcrumb-item active" aria-current="page">A1 - ENV + HTML</li>
+                </ol>
+            </nav>
+        
+            <div class="d-flex justify-content-end">
+                <span class="wd-assignments-published"><i class="fa fa-check-circle text-success"></i> Published</span>
+                <button><i class="fa fa-ellipsis-v"></i></button>
+            </div>
+            <hr>
+            <form action="/Kanbas/Courses/Assignments/screen.html">
+                <div class="form-group mb-4">
+                    <label for="assignmentName">Assignment Name</label>
+                    <input type="text" class="form-control" id="assignmentName" placeholder="A1 - ENV + HTML">
+                </div>
+                <div class="form-group mb-4">
+                    <textarea class="form-control" id="inputTextarea" rows="4">This is the assignment description.</textarea>
+                </div>
+        
+                <div class="form-group row mb-4">
+                    <label for="inputPoints" class="col-sm-2 col-form-label text-sm-end">Points</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputPoints" placeholder="Enter Points" value="100">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="inputAssignmentGroup" class="col-sm-2 col-form-label text-sm-end">Assignment Group</label>
+                    <div class="col-sm-10">
+                        <select id="inputAssignmentGroup" class="form-control">
+                            <option selected>ASSIGNMENTS</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="inputDisplayGradeAs" class="col-sm-2 col-form-label text-sm-end">Display grade as</label>
+                    <div class="col-sm-10">
+                        <select id="inputDisplayGradeAs" class="form-control">
+                            <option selected>Percentage</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="form-group row mb-4">
+                    <div class="col-sm-2"> </div>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="inputChk">
+                        <label class="form-check-label" for="inputChk">
+                          Do not count this assignment towards final grade
+                        </label>
+                      </div>
+                    </div>
+                </div>
+        
+                <div class="form-group row mb-4">
+                    <label for="inputAssign" class="col-sm-2 col-form-label text-sm-end">Assign</label>
+                    <div class="col-sm-10">
+                        <form class="wd-form-border">
+                            <div class="form-group">
+                                <label for="inputAssignTo"><b>Assign to</b></label>
+                                <input type="text" class="form-control" id="inputAssignTo" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="wd-due-date">Due</label><br />
+                                <input type="date" class="form-control" id="wd-due-date" value="2021-01-01" />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="wd-available-from">Available from</label><br />
+                                    <input type="date" class="form-control" id="wd-available-from" value="2021-01-01" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="wd-available-until">Until</label><br />
+                                    <input type="date" class="form-control" id="wd-available-until" value="2021-01-01" />
+                                </div>
+                            </div>
+                            <button class="wd-assignment-btn-width">+ Add</button>
+                        </form>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Notify users that this content has changed
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-2 float-end">
                         <button>Cancel</button>
-                        <button type="submit">Save</button>
-                      
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <button class="wd-assignments-edit-bg-red" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </form>   
 </body>
 </html>

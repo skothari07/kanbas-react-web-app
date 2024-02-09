@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Assignment</title>
+</head>
+<body>
+    <select>
+        <option>Speed Grader</option>
+    </select>
+    <hr>
+    <form action="/Kanbas/Courses/Assignments/screen.html">
+        <label for="wd-assignment-name">Assignment Name</label><br/>
+        <input type="text" id="wd-assignment-name" value="A1 - ENV + HTML" /><br /><br />
+
+        <textarea row="10" cols="30">This is the assignment description.</textarea><br /><br />
+
+        <label for="wd-points">Points</label><br/>
+        <input type="number" id="wd-points" min="0" max="100" value="100" /><br /><br />
+
+        <label for="wd-assignment-group">Assignment Group</label><br/>
+        <select id="wd-assignment-group">
+            <option>ASSIGNMENTS</option>
+        </select><br /><br />
+
+        <label for="wd-display-grade-as">Display Grade as</label><br/>
+        <select id="wd-display-grade-as">
+            <option>Percentage</option>
+        </select><br /><br />
+
+        <label for="wd-submission-type">Submission Type</label><br/>
+        <select id="wd-submission-type">
+            <option>Online</option>
+            <option>Pen and paper</option>
+        </select><br /><br />
+
+        <label>Online Entry Options</label><br/>
+        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-text-entry" value="TEXT ENTRY" />
+        <label for="wd-cb-text-entry">Text Entry</label><br />
+        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-website-URL" value="WEBSITE URL" />
+        <label for="wd-cb-website-URL">Website URL</label><br />
+        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-media-recordings" value="MEDIA RECORDINGS" />
+        <label for="wd-cb-media-recordings">Media Recordings</label><br />
+        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-student-annotations" value="STUDENT ANNOTATIONS" />
+        <label for="wd-cb-student-annotations">Student Annotations</label><br />
+        <input type="checkbox" name="checkbox-online-entry-options" id="wd-cb-file-upload" value="FILE UPLOAD" />
+        <label for="wd-cb-file-upload">File Upload</label><br /><br />
+
+        <label>Assign</label><br />
+        <label for="wd-assign-to">Assign to</label><br />
+        <input type="text" id="wd-assign-to" value="Everyone" /><br /><br />
+
+        <label for="wd-due-date">Due</label><br />
+        <input type="date" id="wd-due-date" value="2021-01-01" /><br /><br />
+
+        <label for="wd-available-from">Available from</label><br />
+        <input type="date" id="wd-available-from" value="2021-01-01" /><br /><br />
+
+        <label for="wd-available-until">Until</label><br />
+        <input type="date" id="wd-available-until" value="2021-01-01" /><br /><br />
+
+        <button>Cancel</button>
+        <button type="submit">Save</button>
+      
+    </form>
+</body>
+</html>

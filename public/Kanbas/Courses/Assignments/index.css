@@ -34,3 +34,8 @@ li.wd-assignments-bg-light-gray{
     border-radius: 25px;
     padding: 5px;
 }
+
+.wd-unlink{
+    text-decoration: none;
+    color: inherit;
+}

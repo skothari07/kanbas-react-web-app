@@ -1,0 +1,15 @@
+.wd-assignments-published{
+    color: green;
+}
+
+.wd-assignments-edit-bg-red{
+    background-color: red;
+}
+
+.wd-form-border{
+    border: 1px black solid;
+    padding: 3px;
+}
+.wd-assignment-btn-width{
+    width: 100%;
+}
