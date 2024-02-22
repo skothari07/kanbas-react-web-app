@@ -24,6 +24,7 @@ border-left: 2px solid green;
 }
 .wd-modules > li {
 margin-bottom: 20px;
+padding: 0px;
 }
 
 .wd-modules-sublist-padding {
@@ -41,15 +42,32 @@ padding-left: 25px;
 .wd-modules-top-nav{
     background-color: black;
     color: white;
-    height: 20px;
+    height: 30px;
+    width: 100%;
 }
 
-div > button {
-    margin-left: 5px;
-    margin-top: 10px;
+.wd-modules-course-status {
+    border-radius: 0%;
 }
 
-div > span {
-    margin-left: 5px;
-    margin-top: 10px;
+.wd-modules-course-status-list-item {
+    background-color: lightgrey;
+    border: 1px solid gray;
+    margin-bottom: 2px;
 }
+
+.wd-status {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.wd-to-do-text {
+    color : red;
+    font-size: 1rem;
+}
+
+.wd-to-do-sub-text{
+    color: gray;
+    font-size: 0.75rem;
+}
+
