@@ -1,0 +1,473 @@
+[
+    {
+      "_id": "M101",
+      "name": "Introduction to Rocket Propulsion",
+      "description": "Basic principles of rocket propulsion and rocket engines.",
+      "course": "RS101",
+      "lessons": [
+        {
+          "_id": "L101",
+          "name": "History of Rocketry",
+          "description": "A brief history of rocketry and space exploration.",
+          "module": "M101"
+        },
+        {
+          "_id": "L102",
+          "name": "Rocket Propulsion Fundamentals",
+          "description": "Basic principles of rocket propulsion.",
+          "module": "M101"
+        },
+        {
+          "_id": "L103",
+          "name": "Rocket Engine Types",
+          "description": "Overview of different types of rocket engines.",
+          "module": "M101"
+        }
+      ]
+    },
+    {
+      "_id": "M102",
+      "name": "Fuel and Combustion",
+      "description": "Understanding rocket fuel, combustion processes, and efficiency.",
+      "course": "RS101",
+      "lessons": [
+        {
+          "_id": "L201",
+          "name": "Rocket Fuel",
+          "description": "Overview of different types of rocket fuels.",
+          "module": "M102"
+        },
+        {
+          "_id": "L202",
+          "name": "Combustion Processes",
+          "description": "Understanding combustion processes and efficiency.",
+          "module": "M102"
+        },
+        {
+          "_id": "L203",
+          "name": "Combustion Instability",
+          "description": "Understanding combustion instability and mitigation.",
+          "module": "M102"
+        }
+      ]
+    },
+    {
+      "_id": "M103",
+      "name": "Nozzle Design",
+      "description": "Principles of rocket nozzle design and performance optimization.",
+      "course": "RS101",
+      "lessons": [
+        {
+          "_id": "L301",
+          "name": "Nozzle Design",
+          "description": "Overview of different types of rocket nozzles.",
+          "module": "M103"
+        },
+        {
+          "_id": "L302",
+          "name": "Nozzle Performance",
+          "description": "Understanding nozzle performance and efficiency.",
+          "module": "M103"
+        },
+        {
+          "_id": "L303",
+          "name": "Nozzle Optimization",
+          "description": "Optimizing nozzle design for specific applications.",
+          "module": "M103"
+        }
+      ]
+    },
+    {
+      "_id": "M201",
+      "name": "Fundamentals of Aerodynamics",
+      "description": "Basic aerodynamic concepts and fluid dynamics principles.",
+      "course": "RS102",
+      "lessons": [
+        {
+          "_id": "L101",
+          "name": "History of Aerodynamics",
+          "description": "A brief history of Aerodynamics.",
+          "module": "M101"
+        },
+        {
+          "_id": "L102",
+          "name": "AeroDynamics Fundamentals",
+          "description": "Basic principles of Aerodynamics.",
+          "module": "M101"
+        },
+        {
+          "_id": "L103",
+          "name": "Aerodynamic types",
+          "description": "Overview of different types of Aerodynamics.",
+          "module": "M101"
+        }
+      ]
+    },
+    {
+      "_id": "M202",
+      "name": "Subsonic and Supersonic Flow",
+      "description": "Understanding subsonic and supersonic aerodynamic behaviors.",
+      "course": "RS102",
+      "lessons": [
+        {
+          "_id": "L201",
+          "name": "Subsonic Flow",
+          "description": "Overview of different types of Subsonic flow.",
+          "module": "M102"
+        },
+        {
+          "_id": "L202",
+          "name": "Supersonic Flow",
+          "description": "Overview of different types of Supersonic flow.",
+          "module": "M102"
+        },
+        {
+          "_id": "L203",
+          "name": "Instability",
+          "description": "Understanding flow instability and mitigation.",
+          "module": "M102"
+        }
+      ]
+    },
+    {
+      "_id": "M203",
+      "name": "Aerodynamic Heating",
+      "description": "Study of aerodynamic heating and thermal protection systems.",
+      "course": "RS102",
+      "lessons": [
+        {
+          "_id": "L301",
+          "name": "Nozzle Design",
+          "description": "Overview of different types of rocket nozzles.",
+          "module": "M103"
+        },
+        {
+          "_id": "L302",
+          "name": "Performance",
+          "description": "Understanding performance and efficiency.",
+          "module": "M103"
+        },
+        {
+          "_id": "L303",
+          "name": "Optimization",
+          "description": "Optimizing aerodynamic design for specific applications.",
+          "module": "M103"
+        }
+      ]
+    },
+    {
+      "_id": "M301",
+      "name": "Spacecraft Structural Design",
+      "description": "Fundamentals of designing spacecraft structures and materials selection.",
+      "course": "RS103",
+      "lessons": [
+        {
+          "_id": "L101",
+          "name": "History of Spacecraft",
+          "description": "A brief history of spacecraft and its structural design.",
+          "module": "M101"
+        },
+        {
+          "_id": "L102",
+          "name": "Spacecraft design Fundamentals",
+          "description": "Basic principles of Spacecraft Structural Design.",
+          "module": "M101"
+        },
+        {
+          "_id": "L103",
+          "name": "Spacecraft structural design types",
+          "description": "Overview of different types of spacecrafts.",
+          "module": "M101"
+        }
+      ]
+
+    },
+    {
+      "_id": "M302",
+      "name": "Orbital Mechanics",
+      "description": "Understanding orbital dynamics and mission planning.",
+      "course": "RS103",
+      "lessons": [
+        {
+          "_id": "L201",
+          "name": "Orbital Mechanics Overview",
+          "description": "Overview of different types of Orbital Mechanics.",
+          "module": "M102"
+        },
+        {
+          "_id": "L202",
+          "name": "Orbital Mechanics Processes",
+          "description": "Understanding Orbital Mechanics processes and efficiency.",
+          "module": "M102"
+        },
+        {
+          "_id": "L203",
+          "name": "Orbital Mechanics Instability",
+          "description": "Understanding Orbital Mechanics instability and mitigation.",
+          "module": "M102"
+        }
+      ]
+    },
+    {
+      "_id": "M303",
+      "name": "Spacecraft Systems Engineering",
+      "description": "Overview of spacecraft systems and subsystems engineering.",
+      "course": "RS103",
+      "lessons": [
+        {
+          "_id": "L301",
+          "name": "Spacecraft Systems Engineering Design",
+          "description": "Overview of different types of Spacecraft Systems.",
+          "module": "M103"
+        },
+        {
+          "_id": "L302",
+          "name": "Spacecraft Systems Engineering Performance",
+          "description": "Understanding Spacecraft Systems Engineering performance and efficiency.",
+          "module": "M103"
+        },
+        {
+          "_id": "L303",
+          "name": "Spacecraft Systems Engineering Optimization",
+          "description": "Optimizing Spacecraft Systems Engineering design for specific applications.",
+          "module": "M103"
+        }
+      ]
+    },
+
+    {
+      "_id": "M101",
+      "name": "Introduction to System Design",
+      "description": "Basic principles of System Design.",
+      "course": "RS104",
+      "lessons": [
+        {
+          "_id": "L101",
+          "name": "History of System Design",
+          "description": "A brief history of System Design.",
+          "module": "M101"
+        },
+        {
+          "_id": "L102",
+          "name": "System Design Fundamentals",
+          "description": "Basic principles of System Design.",
+          "module": "M101"
+        },
+        {
+          "_id": "L103",
+          "name": "System Design deep dive",
+          "description": "Overview of System Design.",
+          "module": "M101"
+        }
+      ]
+    },
+    {
+      "_id": "M102",
+      "name": "Fuel and Combustion",
+      "description": "Understanding rocket fuel, combustion processes, and efficiency.",
+      "course": "RS104",
+      "lessons": [
+        {
+          "_id": "L201",
+          "name": "Rocket Fuel",
+          "description": "Overview of different types of rocket fuels.",
+          "module": "M102"
+        },
+        {
+          "_id": "L202",
+          "name": "Combustion Processes",
+          "description": "Understanding combustion processes and efficiency.",
+          "module": "M102"
+        },
+        {
+          "_id": "L203",
+          "name": "Combustion Instability",
+          "description": "Understanding combustion instability and mitigation.",
+          "module": "M102"
+        }
+      ]
+    },
+    {
+      "_id": "M103",
+      "name": "Nozzle Design",
+      "description": "Principles of rocket nozzle design and performance optimization.",
+      "course": "RS104",
+      "lessons": [
+        {
+          "_id": "L301",
+          "name": "Nozzle Design",
+          "description": "Overview of different types of rocket nozzles.",
+          "module": "M103"
+        },
+        {
+          "_id": "L302",
+          "name": "Nozzle Performance",
+          "description": "Understanding nozzle performance and efficiency.",
+          "module": "M103"
+        },
+        {
+          "_id": "L303",
+          "name": "Nozzle Optimization",
+          "description": "Optimizing nozzle design for specific applications.",
+          "module": "M103"
+        }
+      ]
+    },
+    {
+      "_id": "M201",
+      "name": "Fundamentals of Aerodynamics",
+      "description": "Basic aerodynamic concepts and fluid dynamics principles.",
+      "course": "RS105",
+      "lessons": [
+        {
+          "_id": "L101",
+          "name": "History of Aerodynamics",
+          "description": "A brief history of Aerodynamics.",
+          "module": "M101"
+        },
+        {
+          "_id": "L102",
+          "name": "AeroDynamics Fundamentals",
+          "description": "Basic principles of Aerodynamics.",
+          "module": "M101"
+        },
+        {
+          "_id": "L103",
+          "name": "Aerodynamic types",
+          "description": "Overview of different types of Aerodynamics.",
+          "module": "M101"
+        }
+      ]
+    },
+    {
+      "_id": "M202",
+      "name": "Subsonic and Supersonic Flow",
+      "description": "Understanding subsonic and supersonic aerodynamic behaviors.",
+      "course": "RS105",
+      "lessons": [
+        {
+          "_id": "L201",
+          "name": "Subsonic Flow",
+          "description": "Overview of different types of Subsonic flow.",
+          "module": "M102"
+        },
+        {
+          "_id": "L202",
+          "name": "Supersonic Flow",
+          "description": "Overview of different types of Supersonic flow.",
+          "module": "M102"
+        },
+        {
+          "_id": "L203",
+          "name": "Instability",
+          "description": "Understanding flow instability and mitigation.",
+          "module": "M102"
+        }
+      ]
+    },
+    {
+      "_id": "M203",
+      "name": "Aerodynamic Heating",
+      "description": "Study of aerodynamic heating and thermal protection systems.",
+      "course": "RS105",
+      "lessons": [
+        {
+          "_id": "L301",
+          "name": "Nozzle Design",
+          "description": "Overview of different types of rocket nozzles.",
+          "module": "M103"
+        },
+        {
+          "_id": "L302",
+          "name": "Performance",
+          "description": "Understanding performance and efficiency.",
+          "module": "M103"
+        },
+        {
+          "_id": "L303",
+          "name": "Optimization",
+          "description": "Optimizing aerodynamic design for specific applications.",
+          "module": "M103"
+        }
+      ]
+    },
+    {
+      "_id": "M301",
+      "name": "Spacecraft Structural Design",
+      "description": "Fundamentals of designing spacecraft structures and materials selection.",
+      "course": "RS106",
+      "lessons": [
+        {
+          "_id": "L101",
+          "name": "History of Spacecraft",
+          "description": "A brief history of spacecraft and its structural design.",
+          "module": "M101"
+        },
+        {
+          "_id": "L102",
+          "name": "Spacecraft design Fundamentals",
+          "description": "Basic principles of Spacecraft Structural Design.",
+          "module": "M101"
+        },
+        {
+          "_id": "L103",
+          "name": "Spacecraft structural design types",
+          "description": "Overview of different types of spacecrafts.",
+          "module": "M101"
+        }
+      ]
+
+    },
+    {
+      "_id": "M302",
+      "name": "Orbital Mechanics",
+      "description": "Understanding orbital dynamics and mission planning.",
+      "course": "RS106",
+      "lessons": [
+        {
+          "_id": "L201",
+          "name": "Orbital Mechanics Overview",
+          "description": "Overview of different types of Orbital Mechanics.",
+          "module": "M102"
+        },
+        {
+          "_id": "L202",
+          "name": "Orbital Mechanics Processes",
+          "description": "Understanding Orbital Mechanics processes and efficiency.",
+          "module": "M102"
+        },
+        {
+          "_id": "L203",
+          "name": "Orbital Mechanics Instability",
+          "description": "Understanding Orbital Mechanics instability and mitigation.",
+          "module": "M102"
+        }
+      ]
+    },
+    {
+      "_id": "M303",
+      "name": "Spacecraft Systems Engineering",
+      "description": "Overview of spacecraft systems and subsystems engineering.",
+      "course": "RS106",
+      "lessons": [
+        {
+          "_id": "L301",
+          "name": "Spacecraft Systems Engineering Design",
+          "description": "Overview of different types of Spacecraft Systems.",
+          "module": "M103"
+        },
+        {
+          "_id": "L302",
+          "name": "Spacecraft Systems Engineering Performance",
+          "description": "Understanding Spacecraft Systems Engineering performance and efficiency.",
+          "module": "M103"
+        },
+        {
+          "_id": "L303",
+          "name": "Spacecraft Systems Engineering Optimization",
+          "description": "Optimizing Spacecraft Systems Engineering design for specific applications.",
+          "module": "M103"
+        }
+      ]
+    }
+  ]
