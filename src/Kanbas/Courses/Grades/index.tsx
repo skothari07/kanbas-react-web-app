@@ -56,7 +56,8 @@ function Grades() {
                                     <td>{user?.firstName} {user?.lastName}</td>
                                     {assignments.map((assignment) => {
                                         const grade = grades.find(
-                                            (grade) => grade.student === enrollment.user && grade.assignment === assignment._id);
+                                            (grade) => grade.student === enrollment.user && grade.assignment === assignment._id && assignment.course === courseId);
+                                        console.log(grade);
                                         if (grade === undefined) {
                                                 return null;
                                         }
