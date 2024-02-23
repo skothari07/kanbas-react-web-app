@@ -1,0 +1,14 @@
+.wd-modules-top-nav{
+    background-color: black;
+    color: white;
+    height: 30px;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+body * {
+    font-family: Arial, Helvetica, sans-serif;
+}

@@ -8,7 +8,7 @@ function Home() {
             <div className="flex-fill">
                 <Modules />
             </div>
-            <div className="flex-grow-0 wd-status" style={{"width": "250px"}}>
+            <div className="flex-grow-0 wd-status d-none d-md-block" style={{"width": "250px"}}>
                 <Status />
             </div>
         </div>
