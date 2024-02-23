@@ -17,13 +17,13 @@ function Courses() {
 
     return (
         <div>
-            <h4 className="topBar"><HiMiniBars3 /> Course {course?.name} &gt; {coursePage} </h4>
+            <h4 className="topBar"><HiMiniBars3 /> Course {course?.name} <span className="CoursePageName"> &gt; {coursePage} </span></h4>
             <hr />
             <CourseNavigation />
             <div>
                 <div
                     className="overflow-y-scroll position-fixed bottom-0 end-0"
-                    style={{ left: "320px", top: "50px" }} >
+                    style={{ left: "300px", top: "50px" }} >
                     <Routes>
                         <Route path="/" element={<Navigate to="Home" />} />
                         <Route path="Home" element={<Home />} />

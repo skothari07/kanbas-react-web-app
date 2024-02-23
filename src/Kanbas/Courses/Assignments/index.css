@@ -1,0 +1,55 @@
+.wd-assignments,
+.wd-assignments * {
+border-radius: 0%;
+border: none;
+margin: 0px;
+padding: 0px;
+}
+.wd-assignments {
+margin: 10px;
+border-radius: 0px;
+}
+.wd-assignments > li {
+border: 1px solid gray !important;
+padding: 10px;
+
+}
+
+.wd-assignments-text-xs {
+    font-size: 0.9rem;
+}
+
+.wd-assignments-bg-red {
+    background-color: red;
+}
+li.wd-assignments-bg-light-gray{
+    background-color: lightgray;
+}
+.wd-assignments-round-corners {
+    border-radius: 0px !important;
+}
+
+.wd-assignments-percentage{
+    border: 1px solid gray !important;
+    border-radius: 25px;
+    padding: 5px;
+}
+
+.wd-unlink{
+    text-decoration: none;
+    color: inherit;
+}
+
+.search-assignment {
+    margin-top: 10px;
+}
+
+.wd-assignment-details {
+    margin-left: 10px;
+}
+
+.wd-assignment-title {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}

@@ -1,0 +1,19 @@
+.editable-cell {
+    cursor: pointer;
+  }
+  .editable-cell:hover {
+    background-color: #f5f5f5;
+  }
+
+  .wd-grades-table{
+    border: 1;
+  }
+
+  .wd-grades-table th{
+    vertical-align: middle !important;
+  }
+
+  .wd-grades-btn{
+    margin-left: 5px;
+    padding: 5px;
+  }
