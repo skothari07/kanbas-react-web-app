@@ -7,6 +7,8 @@ import { HiMiniBars3 } from "react-icons/hi2";
 import "./index.css";
 import * as db from "./Database";
 import { useState } from "react";
+import store from "./store";
+import { Provider } from "react-redux";
 
 function Kanbas() {
 
@@ -42,33 +44,35 @@ function Kanbas() {
 
     return (
         <>
-            <div className="d-block d-md-none wd-modules-top-nav">
-                <div className="row">
-                    <div className="col-2 text-left inline-items"><HiMiniBars3 /></div>
-                    <div className="col-9 text-center inline-items">CS5600</div>
-                    <div className="col-1 text-right inline-items"><FaCaretDown /></div>
+            <Provider store={store}>
+                <div className="d-block d-md-none wd-modules-top-nav">
+                    <div className="row">
+                        <div className="col-2 text-left inline-items"><HiMiniBars3 /></div>
+                        <div className="col-9 text-center inline-items">CS5600</div>
+                        <div className="col-1 text-right inline-items"><FaCaretDown /></div>
+                    </div>
                 </div>
-            </div>
-        
-            <div className="d-flex">
-                <div className="d-none d-md-block">
-                    <KanbasNavigation />
+            
+                <div className="d-flex">
+                    <div className="d-none d-md-block">
+                        <KanbasNavigation />
+                    </div>
+                    <div style={{ flexGrow: 1 }}>
+                        <Routes>
+                            <Route path="/" element={<Navigate to="Dashboard" />} />
+                            <Route path="Account" element={<h1>Account</h1>} />
+                            <Route path="Dashboard" element={<Dashboard
+                                                                courses={courses}
+                                                                course={course}
+                                                                setCourse={setCourse}
+                                                                addNewCourse={addNewCourse}
+                                                                deleteCourse={deleteCourse}
+                                                                updateCourse={updateCourse}/>} />
+                            <Route path="Courses/:courseId/*" element={<Courses courses={courses} />} />
+                        </Routes>
+                    </div>
                 </div>
-                <div style={{ flexGrow: 1 }}>
-                    <Routes>
-                        <Route path="/" element={<Navigate to="Dashboard" />} />
-                        <Route path="Account" element={<h1>Account</h1>} />
-                        <Route path="Dashboard" element={<Dashboard
-                                                            courses={courses}
-                                                            course={course}
-                                                            setCourse={setCourse}
-                                                            addNewCourse={addNewCourse}
-                                                            deleteCourse={deleteCourse}
-                                                            updateCourse={updateCourse}/>} />
-                        <Route path="Courses/:courseId/*" element={<Courses courses={courses} />} />
-                    </Routes>
-                </div>
-            </div></>
+            </Provider></>
     );
 }
 export default Kanbas;
