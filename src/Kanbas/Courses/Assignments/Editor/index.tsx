@@ -17,13 +17,14 @@ function AssignmentEditor() {
     const { assignmentId } = useParams();
     const assignmentList = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignments);
-    let assignment = useSelector((state: KanbasState) =>
+    const assignment = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignment);
     const dispatch = useDispatch();
-    if(typeof assignmentId !== 'undefined'){
-    assignment = assignmentList.find(
-        (assignment) => assignment._id === assignmentId);
-    }
+    // if(typeof assignmentId !== 'undefined'){
+    // assignment = assignmentList.find(
+    //     (assignment) => assignment._id === assignmentId);
+    // }
+    
     const { courseId } = useParams();
     const navigate = useNavigate();
 
