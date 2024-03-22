@@ -23,18 +23,21 @@ const assignmentsSlice = createSlice({
             );
         },
         updateAssignment: (state, action) => {
-            console.log(action.payload);
             state.assignments = state.assignments.map((assignment) => {
-                if (assignment._id === action.payload._id) {
+                
+                console.log(action.payload._id);
+                if (assignment._id === action.payload._id) {console.log(action.payload.title)
+                    console.log(action.payload);
                     return action.payload;
                 } else {
                     return assignment;
                 }
             });
+            
         },
-        
         setAssignment: (state, action) => {
             state.assignment = action.payload;
+            console.log(state.assignment)
         },
     },
 });

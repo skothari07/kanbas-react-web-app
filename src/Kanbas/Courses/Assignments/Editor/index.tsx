@@ -17,8 +17,14 @@ function AssignmentEditor() {
     const { assignmentId } = useParams();
     const assignmentList = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignments);
-    const assignment = useSelector((state: KanbasState) =>
+    let assignment = assignmentList.find(
+            (assignmen) => assignmen._id === assignmentId);
+        
+    // const assignment = useSelector((state: KanbasState) =>
+    //     state.assignmentsReducer.assignment);
+    const assignmen = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignment);
+    assignment = { ...assignment, title: assignmen.title, desc: assignmen.desc, due_date: assignmen.due_date, points: assignmen.points };
     const dispatch = useDispatch();
     // if(typeof assignmentId !== 'undefined'){
     // assignment = assignmentList.find(
@@ -28,10 +34,11 @@ function AssignmentEditor() {
     const { courseId } = useParams();
     const navigate = useNavigate();
 
-    const handleSave = () => {
+    const handleSave = (assignment: any) => {
         if (assignmentId === undefined) {
             dispatch(addAssignment({ ...assignment, course: courseId }));
         } else {
+            console.log("FROM EDITOR", assignment)
             dispatch(updateAssignment(assignment));
         }
         
@@ -49,7 +56,10 @@ function AssignmentEditor() {
                 <div className="form-group mb-4">
                     <label htmlFor="assignmentName">Assignment Name</label>
                     <input type="text" className="form-control" id="assignmentName" defaultValue={assignment?.title} onChange={(e) =>
-                        dispatch(setAssignment({ ...assignment, title: e.target.value }))
+                    {
+                        dispatch(setAssignment({ ...assignment, title: e.target.value }));
+                        console.log(assignment)
+                    }
                     } />
                 </div>
                 <div className="form-group mb-4">
@@ -138,7 +148,7 @@ function AssignmentEditor() {
                 </div>
                 <div className="col-2 float-end">
                     <button><Link to={`/Kanbas/Courses/${courseId}/Assignments`} className="wd-assignment-editor-btn">Cancel</Link></button>
-                    <button onClick={handleSave} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Save</button>
+                    <button onClick={() => handleSave(assignment)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Save</button>
                 </div>
             </div>
         </div>
