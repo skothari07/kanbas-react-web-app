@@ -5,7 +5,7 @@ function ModulesButtons() {
     return (
         <>
             <div className="d-flex justify-content-end">
-                <button className="btn btn-warning">Collapse All</button>
+                <button className="btn btn-secondary">Collapse All</button>
                 <button className="btn btn-primary">View Progress</button>
                 <span>
                     <FaCheckCircle className="text-success" />
