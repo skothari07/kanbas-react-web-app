@@ -2,13 +2,19 @@ import React from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
-import { assignments } from "../../Database";
+//import { assignments } from "../../Database";
 import './index.css';
+import { useSelector, useDispatch } from "react-redux";
+import { KanbasState } from "../../store";
+import { deleteAssignment} from "./reducer";
 
 function Assignments() {
-const { courseId } = useParams();
-const assignmentList = assignments.filter(
-(assignment) => assignment.course === courseId);
+    const { courseId } = useParams();
+    
+    const assignmentList = useSelector((state: KanbasState) =>
+        state.assignmentsReducer.assignments);
+    const dispatch = useDispatch();
+//const assignmentList = assignments.filter((assignment) => assignment.course === courseId);
     return (
         <>
             <div className="row justify-content-between">
@@ -17,7 +23,7 @@ const assignmentList = assignments.filter(
                 </div>
                 <div className="col-auto">
                     <button>+ Group</button>
-                    <button className="wd-assignments-bg-red">+ Assignment</button>
+                    <Link to={`/Kanbas/Courses/${courseId}/Assignments/create`} className="wd-assignment-title"><button className="wd-assignments-bg-red">+ Assignment</button></Link>
                     <button><FaEllipsisV /></button>
                 </div>
             </div>
@@ -33,8 +39,8 @@ const assignmentList = assignments.filter(
                         </span>
                     </div>
                     <ul className="list-group">
-                        {assignmentList.map((assignment) => (
-                            <li className="list-group-item">
+                        {assignmentList.filter((assignment) => assignment.course === courseId).map((assignment) => (
+                            <li className="list-group-item" key={assignment._id}>
                             <div className="row align-items-center">
                                 <div className="col-auto">
                                     <FaEllipsisV className="me-2" />
@@ -43,11 +49,11 @@ const assignmentList = assignments.filter(
                                 <div className="col wd-assignment-details">
                                     <p className="mb-1"><Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} className="wd-assignment-title">{assignment.title}</Link></p>
                                     <p className="mb-0 wd-assignments-text-xs text-muted">{assignment.desc}</p>
-                                    <p className="mb-0 wd-assignments-text-xs text-muted">{assignment.due_date}</p>
+                                        <p className="mb-0 wd-assignments-text-xs text-muted">Due {new Date(assignment.due_date).toDateString()} | {assignment.points}</p>
                                 </div>
                                 <div className="col-auto">
                                     <span>
-                                        <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" />
+                                        <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" /><button onClick={() => dispatch(deleteAssignment(assignment._id))} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>
                                     </span>
                                 </div>
                             </div>

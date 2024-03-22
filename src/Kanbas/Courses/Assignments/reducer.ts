@@ -3,7 +3,7 @@ import { assignments } from "../../Database";
 
 const initialState = {
     assignments: assignments,
-    assignment: { title: "New Module 123", desc: "New Description" },
+    assignment: { title: "New Module 123", desc: "New Description", due_date: null, points: 0 },
 };
 
 const assignmentsSlice = createSlice({
@@ -15,6 +15,7 @@ const assignmentsSlice = createSlice({
                 { ...action.payload, _id: new Date().getTime().toString() },
                 ...state.assignments,
             ];
+            console.log(state.assignments);
         },
         deleteAssignment: (state, action) => {
             state.assignments = state.assignments.filter(
@@ -22,6 +23,7 @@ const assignmentsSlice = createSlice({
             );
         },
         updateAssignment: (state, action) => {
+            console.log(action.payload);
             state.assignments = state.assignments.map((assignment) => {
                 if (assignment._id === action.payload._id) {
                     return action.payload;
@@ -30,8 +32,9 @@ const assignmentsSlice = createSlice({
                 }
             });
         },
+        
         setAssignment: (state, action) => {
-            state.assignments = action.payload;
+            state.assignment = action.payload;
         },
     },
 });
