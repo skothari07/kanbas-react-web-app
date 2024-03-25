@@ -2,7 +2,6 @@ import React from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
-//import { assignments } from "../../Database";
 import './index.css';
 import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from "../../store";
@@ -14,7 +13,6 @@ function Assignments() {
     const assignmentList = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignments);
     const dispatch = useDispatch();
-//const assignmentList = assignments.filter((assignment) => assignment.course === courseId);
     return (
         <>
             <div className="row justify-content-between">

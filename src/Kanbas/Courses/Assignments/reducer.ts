@@ -15,7 +15,6 @@ const assignmentsSlice = createSlice({
                 { ...action.payload, _id: new Date().getTime().toString() },
                 ...state.assignments,
             ];
-            console.log(state.assignments);
         },
         deleteAssignment: (state, action) => {
             state.assignments = state.assignments.filter(
@@ -24,10 +23,7 @@ const assignmentsSlice = createSlice({
         },
         updateAssignment: (state, action) => {
             state.assignments = state.assignments.map((assignment) => {
-                
-                console.log(action.payload._id);
-                if (assignment._id === action.payload._id) {console.log(action.payload.title)
-                    console.log(action.payload);
+                if (assignment._id === action.payload._id) {
                     return action.payload;
                 } else {
                     return assignment;
@@ -37,7 +33,6 @@ const assignmentsSlice = createSlice({
         },
         setAssignment: (state, action) => {
             state.assignment = action.payload;
-            console.log(state.assignment)
         },
     },
 });

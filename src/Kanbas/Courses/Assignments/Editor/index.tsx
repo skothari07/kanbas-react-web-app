@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-//import { assignments } from "../../../Database";
 import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import "./index.css";
 import {
     addAssignment,
     updateAssignment,
-    setAssignment,
 } from "../reducer";
 import { KanbasState } from "../../../store";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,33 +13,29 @@ import { useSelector, useDispatch } from "react-redux";
 
 function AssignmentEditor() {
     const { assignmentId } = useParams();
-    const assignmentList = useSelector((state: KanbasState) =>
-        state.assignmentsReducer.assignments);
-    let assignment = assignmentList.find(
-            (assignmen) => assignmen._id === assignmentId);
-        
-    // const assignment = useSelector((state: KanbasState) =>
-    //     state.assignmentsReducer.assignment);
-    const assignmen = useSelector((state: KanbasState) =>
-        state.assignmentsReducer.assignment);
-    assignment = { ...assignment, title: assignmen.title, desc: assignmen.desc, due_date: assignmen.due_date, points: assignmen.points };
-    const dispatch = useDispatch();
-    // if(typeof assignmentId !== 'undefined'){
-    // assignment = assignmentList.find(
-    //     (assignment) => assignment._id === assignmentId);
-    // }
-    
     const { courseId } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
+    const assignmentList = useSelector((state: KanbasState) =>
+        state.assignmentsReducer.assignments);
+    
+    let currAassignment = useSelector((state: KanbasState) =>
+        state.assignmentsReducer.assignment);
+    
+    if(typeof assignmentId !== 'undefined'){
+    currAassignment = assignmentList.find(
+        (assignment) => assignment._id === assignmentId);
+    }
+    
+    const [assignment, setAssignmentDetails] = useState(currAassignment);
 
-    const handleSave = (assignment: any) => {
+    const handleSave = () => {
         if (assignmentId === undefined) {
             dispatch(addAssignment({ ...assignment, course: courseId }));
         } else {
-            console.log("FROM EDITOR", assignment)
             dispatch(updateAssignment(assignment));
         }
-        
         navigate(`/Kanbas/Courses/${courseId}/Assignments`);
     };
 
@@ -55,16 +49,12 @@ function AssignmentEditor() {
             <form>
                 <div className="form-group mb-4">
                     <label htmlFor="assignmentName">Assignment Name</label>
-                    <input type="text" className="form-control" id="assignmentName" defaultValue={assignment?.title} onChange={(e) =>
-                    {
-                        dispatch(setAssignment({ ...assignment, title: e.target.value }));
-                        console.log(assignment)
-                    }
+                    <input type="text" className="form-control" id="assignmentName" defaultValue={assignment?.title} onChange={(e) => setAssignmentDetails({...assignment, title: e.target.value})
                     } />
                 </div>
                 <div className="form-group mb-4">
                     <textarea className="form-control" id="inputTextarea" rows={4} defaultValue={assignment.desc} onChange={(e) =>
-                        dispatch(setAssignment({ ...assignment, desc: e.target.value }))
+                        setAssignmentDetails({ ...assignment, desc: e.target.value })
                     }></textarea>
                 </div>
 
@@ -72,7 +62,7 @@ function AssignmentEditor() {
                     <label htmlFor="inputPoints" className="col-sm-2 col-form-label text-sm-end">Points</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" id="inputPoints" placeholder="Enter Points" defaultValue={assignment.points} onChange={(e) =>
-                        dispatch(setAssignment({ ...assignment, points: e.target.value }))
+                        setAssignmentDetails({ ...assignment, points: e.target.value })
                     } />
                     </div>
                 </div>
@@ -118,7 +108,7 @@ function AssignmentEditor() {
                             <div className="form-group">
                                 <label htmlFor="wd-due-date">Due</label><br />
                                 <input type="date" className="form-control" id="wd-due-date" defaultValue={assignment.due_date} onChange={(e) =>
-                        dispatch(setAssignment({ ...assignment, due_date: e.target.value }))
+                        setAssignmentDetails({ ...assignment, due_date: e.target.value })
                     }/>
                             </div>
                             <div className="form-row">
@@ -148,7 +138,7 @@ function AssignmentEditor() {
                 </div>
                 <div className="col-2 float-end">
                     <button><Link to={`/Kanbas/Courses/${courseId}/Assignments`} className="wd-assignment-editor-btn">Cancel</Link></button>
-                    <button onClick={() => handleSave(assignment)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Save</button>
+                    <button onClick={() => handleSave()} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Save</button>
                 </div>
             </div>
         </div>
