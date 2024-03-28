@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function EncodingParametersInURLs() {
     const [a, setA] = useState(34);
     const [b, setB] = useState(23);
+
+    const [welcome, setWelcome] = useState("");
+    const fetchWelcome = async () => {
+        const response = await axios.get("http://localhost:4000/a5/welcome");
+        setWelcome(response.data);
+    };
+    useEffect(() => {
+        fetchWelcome();
+    }, []);
+    
     return (
         <div>
             <h3>Encoding Parameters In URLs</h3>
+            <h4>Integrating React with APIs</h4>
+            <h5>Fetching Welcome</h5>
+            <h6>{welcome}</h6>
             <h4>Calculator</h4>
             <input type="number" value={a}
                 onChange={(e) => setA(parseInt(e.target.value))} />

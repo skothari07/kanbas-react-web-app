@@ -61,8 +61,8 @@ function WorkingWithObjects() {
                     completed: e.target.checked
                 })}
                 checked={assignment.completed} />
-            <a href={`${ASSIGNMENT_URL}/score/${assignment.score}`}>
-                Update Score
+            <a href={`${ASSIGNMENT_URL}/score/${assignment.completed}`}>
+                Update Completed
             </a> <br /><br />
             <input type="text"
                 onChange={(e) => setAssignment({

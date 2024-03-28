@@ -11,14 +11,30 @@ function WorkingWithArrays() {
     return (
         <div>
             <h3>Working with Arrays</h3>
+            <label> ID: <br/>
             <input type="number" value={todo.id}
                 onChange={(e) => setTodo({
                     ...todo, id: parseInt(e.target.value)
-                })} />
-            <input type="text" value={todo.title}
+                })} /></label><br/>
+            <label>Title: <br/><input type="text" value={todo.title}
                 onChange={(e) => setTodo({
                     ...todo, title: e.target.value
-                })} />
+                })} /></label><br />
+            <label>Description: <br/><input type="text" value={todo.description}
+                onChange={(e) => setTodo({
+                    ...todo, description: e.target.value
+                })} /></label><br />
+            <label> Completed: <br/>
+            <input type="checkbox" checked={todo.completed}
+                onChange={(e) => setTodo({
+                    ...todo, completed: e.target.checked
+                })} /></label><br />
+            <a className="btn btn-primary" href={`${API}/${todo.id}/completed/${todo.completed}`} >
+                Complete Todo ID = {todo.id}
+            </a><br /><br />
+            <a className="btn btn-primary" href={`${API}/${todo.id}/description/${todo.description}`} >
+                Describe Todo ID = {todo.id}
+            </a><br /><br />
             <h3>Updating an Item in an Array</h3>
             <a className="btn btn-primary" href={`${API}/${todo.id}/title/${todo.title}`} >
                 Update Title to {todo.title}
