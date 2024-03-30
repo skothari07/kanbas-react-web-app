@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 function WorkingWithObjects() {
 
     const [assignment, setAssignment] = useState({
@@ -16,6 +18,19 @@ function WorkingWithObjects() {
     const ASSIGNMENT_URL = "http://localhost:4000/a5/assignment";
 
     const MODULE_URL = "http://localhost:4000/a5/module";
+
+    const fetchAssignment = async () => {
+        const response = await axios.get(`${ASSIGNMENT_URL}`);
+        setAssignment(response.data);
+    };
+    const updateTitle = async () => {
+        const response = await axios
+            .get(`${ASSIGNMENT_URL}/title/${assignment.title}`);
+        setAssignment(response.data);
+    };
+    useEffect(() => {
+        fetchAssignment();
+    }, []);
 
     return (
         <div>
@@ -70,9 +85,12 @@ function WorkingWithObjects() {
                     title: e.target.value
                 })}
                 value={assignment.title} />
-            <a href={`${ASSIGNMENT_URL}/title/${assignment.title}`}>
-                Update Title
-            </a><br /><br />
+            <button onClick={updateTitle} >
+                Update Title to: {assignment.title}
+            </button><br /><br />
+            <button onClick={fetchAssignment} >
+                Fetch Assignment
+            </button><br/><br/>
             <h4>Retrieving Objects</h4>
             <a className="btn btn-primary" href="http://localhost:4000/a5/assignment">
                 Get Assignment
