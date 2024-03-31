@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
 import { useParams } from "react-router";
@@ -8,8 +8,10 @@ import {
     deleteModule,
     updateModule,
     setModule,
+    setModules,
 } from "./reducer";
 import { KanbasState } from "../../store";
+import * as client from "./client";
 
 
 interface Lesson {
@@ -21,6 +23,31 @@ interface Lesson {
 
 function ModuleList() {
     const { courseId } = useParams();
+
+    const handleAddModule = () => {
+        client.createModule(courseId, module).then((module) => {
+            dispatch(addModule(module));
+        });
+    };
+
+    const handleDeleteModule = (moduleId: string) => {
+        client.deleteModule(moduleId).then((status) => {
+            dispatch(deleteModule(moduleId));
+        });
+    };
+
+    const handleUpdateModule = async () => {
+        const status = await client.updateModule(module);
+        dispatch(updateModule(module));
+    };
+
+    useEffect(() => {
+        client.findModulesForCourse(courseId)
+            .then((modules) =>
+                dispatch(setModules(modules))
+            );
+    }, [courseId]);
+
     const moduleList = useSelector((state: KanbasState) =>
         state.modulesReducer.modules);
     const module = useSelector((state: KanbasState) =>
@@ -33,8 +60,8 @@ function ModuleList() {
             {/* <!-- Add buttons here --> */}
             <input value={module.name} onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))}/> <br/><br/>
             <textarea value={module.description} onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))} /><br/>
-            <button onClick={() => dispatch(addModule({ ...module, course: courseId }))} className="btn btn-success">Add</button>
-            <button onClick={() => dispatch(updateModule(module))} className="btn btn-warning">Update</button>
+            <button onClick={handleAddModule} className="btn btn-success">Add</button>
+            <button onClick={handleUpdateModule} className="btn btn-warning">Update</button>
             <ul className="list-group wd-modules">
                 {moduleList.filter((module) => module.course === courseId).map((module, index) => (
                     <li
@@ -52,7 +79,7 @@ function ModuleList() {
                             </span>
                             <span className="float-end">
                             <button onClick={() => dispatch(setModule(module))} className="btn btn-warning">Edit</button>
-                            <button onClick={() => dispatch(deleteModule(module._id))} className="btn btn-danger">Delete</button>
+                            <button onClick={() => handleDeleteModule(module._id)} className="btn btn-danger">Delete</button>
                         </span>
                         </div>
                         {selectedModule && selectedModule._id === module._id && (
