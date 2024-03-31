@@ -12,6 +12,8 @@ interface Todo {
 
 function WorkingWithArrays() {
 
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const [todo, setTodo] = useState<Todo>({
         id: 1, title: "NodeJS Assignment",
         description: "Create a NodeJS server with ExpressJS",
@@ -53,6 +55,26 @@ function WorkingWithArrays() {
         setTodos([...todos, response.data]);
     };
 
+    const deleteTodo = async (todo: Todo) => {
+        try {
+            const response = await axios.delete(`${API}/${todo.id}`);
+            setTodos(todos.filter((t) => t.id !== todo.id));
+        } catch (error: any) {
+            console.log(error);
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
+    const updateTodo = async () => {
+        try {
+            const response = await axios.put(`${API}/${todo.id}`, todo);
+            setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
+        } catch(error: any) {
+            console.log(error);
+            setErrorMessage(error.response.data.message);
+        }
+    };
+
     useEffect(() => {
         fetchTodos();
     }, []);
@@ -69,25 +91,41 @@ function WorkingWithArrays() {
                 onChange={(e) => setTodo({
                     ...todo, title: e.target.value
                 })} /></label><br />
-            <label>Description: <br/><input type="text" value={todo.description}
+            <label>Description: <br /><textarea value={todo.description}
                 onChange={(e) => setTodo({
-                    ...todo, description: e.target.value
+                    ...todo,
+                    description: e.target.value
                 })} /></label><br />
             <label> Completed: <br/>
             <input type="checkbox" checked={todo.completed}
                 onChange={(e) => setTodo({
                     ...todo, completed: e.target.checked
                 })} /></label><br />
+            <button className="btn btn-primary" onClick={postTodo}> Post Todo </button>
             <button className="btn btn-primary" onClick={createTodo} >
                 Create Todo
-            </button><br />
+            </button>
+            <button className="btn btn-warning" onClick={updateTodo}> Update Todo</button>
+            <button onClick={() => deleteTodo(todo)} className="btn btn-danger">
+                Delete
+            </button>
+            <br />
             <button  className="btn btn-danger"onClick={updateTitle} >
                 Update Title
             </button><br />
+            {errorMessage && (
+                <div className="alert alert-danger mb-2 mt-2">
+                    {errorMessage}
+                </div>
+            )}<br/><br/>
             <ul className="list-group">
                 {todos.length > 0 && todos.map((todo) => (
                     <li className="list-group-item" key={todo.id}>
+                        <input checked={todo.completed}
+                            type="checkbox" readOnly />
                         {todo.title}
+                        <p>{todo.description}</p>
+                        <p>{todo.due}</p>
                         <button className="btn btn-primary" onClick={() => fetchTodoById(todo.id)} >
                             Edit
                         </button>
