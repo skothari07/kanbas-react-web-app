@@ -8,6 +8,7 @@ import {
 } from "../reducer";
 import { KanbasState } from "../../../store";
 import { useSelector, useDispatch } from "react-redux";
+import * as client from "../client";
 
 
 
@@ -16,6 +17,17 @@ function AssignmentEditor() {
     const { courseId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const handleAddAssignment = () => {
+        client.createAssignment(courseId, assignment).then((assignment: any) => {
+            dispatch(addAssignment({ ...assignment, course: courseId }));
+        });
+    };
+
+    const handleUpdateAssignment = async () => {
+        const status = await client.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+    };
     
     const assignmentList = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignments);
@@ -32,9 +44,9 @@ function AssignmentEditor() {
 
     const handleSave = () => {
         if (assignmentId === undefined) {
-            dispatch(addAssignment({ ...assignment, course: courseId }));
+            handleAddAssignment();
         } else {
-            dispatch(updateAssignment(assignment));
+            handleUpdateAssignment();
         }
         navigate(`/Kanbas/Courses/${courseId}/Assignments`);
     };

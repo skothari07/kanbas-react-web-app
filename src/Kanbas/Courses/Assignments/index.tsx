@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import './index.css';
 import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from "../../store";
-import { deleteAssignment} from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
+import * as client from "./client";
 
 function Assignments() {
     const { courseId } = useParams();
+
+    const handleDeleteAssignment = (assignmentId: string) => {
+        client.deleteAssignment(assignmentId).then((status) => {
+            dispatch(deleteAssignment(assignmentId));
+        });
+    };
+
+    useEffect(() => {
+        client.findAssignmentsForCourse(courseId)
+            .then((assignments) =>
+                dispatch(setAssignments(assignments))
+            );
+    }, [courseId]);
     
     const assignmentList = useSelector((state: KanbasState) =>
         state.assignmentsReducer.assignments);
+    
     const dispatch = useDispatch();
     return (
         <>
@@ -51,7 +66,7 @@ function Assignments() {
                                 </div>
                                 <div className="col-auto">
                                     <span>
-                                        <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" /><button onClick={() => dispatch(deleteAssignment(assignment._id))} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>
+                                        <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" /><button onClick={() => handleDeleteAssignment(assignment._id)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>
                                     </span>
                                 </div>
                             </div>
