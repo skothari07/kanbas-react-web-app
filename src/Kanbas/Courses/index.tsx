@@ -31,7 +31,7 @@ function Courses() {
 
     return (
         <>
-            <div className="d-flex justify-content-between d-none d-md-block">
+            <div className="row d-flex justify-content-between d-none d-md-flex">
                 <div className="col-auto">
                     <h4 className="topBar" ><HiMiniBars3 /> Course {course?.name} <span className="CoursePageName"> &gt; {coursePage} </span></h4>
                 </div>

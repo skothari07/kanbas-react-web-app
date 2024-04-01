@@ -20,7 +20,7 @@ function AssignmentEditor() {
 
     const handleAddAssignment = () => {
         client.createAssignment(courseId, assignment).then((assignment: any) => {
-            dispatch(addAssignment({ ...assignment, course: courseId }));
+            dispatch(addAssignment(assignment));
         });
     };
 

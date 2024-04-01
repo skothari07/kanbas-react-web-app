@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { FaCheckCircle, FaEllipsisV, FaPlusCircle, FaCaretDown } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
@@ -22,6 +22,7 @@ function Assignments() {
             .then((assignments) =>
                 dispatch(setAssignments(assignments))
             );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [courseId]);
     
     const assignmentList = useSelector((state: KanbasState) =>
