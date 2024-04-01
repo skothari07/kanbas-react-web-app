@@ -13,14 +13,14 @@ interface Todo {
 function WorkingWithArrays() {
 
     const [errorMessage, setErrorMessage] = useState(null);
-
+    const API_BASE = process.env.REACT_APP_API_BASE;
     const [todo, setTodo] = useState<Todo>({
         id: 1, title: "NodeJS Assignment",
         description: "Create a NodeJS server with ExpressJS",
         due: "2021-09-09",
         completed: false,
     });
-    const API = "http://localhost:4000/a5/todos";
+    const API = `${API_BASE}/a5/todos`;
 
     const [todos, setTodos] = useState<Todo[]>([]);
 
