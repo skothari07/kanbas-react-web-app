@@ -7,13 +7,17 @@ export interface User { _id: string; username: string; password: string; role: s
     firstName: string, lastName: string
 };
 
+const request = axios.create({
+    withCredentials: true,
+});
+
 export const signin = async (credentials: User) => {
-    const response = await axios.post(`${USERS_API}/signin`, credentials);
+    const response = await request.post(`${USERS_API}/signin`, credentials);
     return response.data;
 };
 
 export const profile = async () => {
-    const response = await axios.post(`${USERS_API}/profile`);
+    const response = await request.post(`${USERS_API}/profile`);
     console.log(response.data);
     return response.data;
 };
