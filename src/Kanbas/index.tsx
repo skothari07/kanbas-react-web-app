@@ -13,7 +13,7 @@ import Account from "./Account";
 
 function Kanbas() {
 
-    const API_BASE = process.env.REACT_APP_API_BASE;
+    const API_BASE = process.env.REACT_APP_API_BASE1;
     const [courses, setCourses] = useState<any[]>([]);
 
     const COURSES_API = `${API_BASE}/api/courses`;

@@ -15,7 +15,7 @@ function Courses() {
     const { courseId } = useParams();
     const location = useLocation();
 
-    const API_BASE = process.env.REACT_APP_API_BASE;
+    const API_BASE = process.env.REACT_APP_API_BASE1;
     const COURSES_API = `${API_BASE}/api/courses`;
 
     const [course, setCourse] = useState<any>({ _id: "" });
