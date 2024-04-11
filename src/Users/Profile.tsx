@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import * as client from "./client";
 import { useState, useEffect } from "react";
+import { useAuth } from "../auth/AuthContext";
+
 
 type ProfileType = {
     username: string;
@@ -13,6 +15,7 @@ type ProfileType = {
 };
 
 export default function Profile() {
+    const { logout } = useAuth();
     const [profile, setProfile] = useState<ProfileType>({
         username: "", password: "",
         firstName: "", lastName: "", dob: "", email: "", role: ""
@@ -47,6 +50,7 @@ export default function Profile() {
 
     const handleSignOut = async () => {
         await client.signout();
+        logout();
         navigate("/Signin");
     }
 

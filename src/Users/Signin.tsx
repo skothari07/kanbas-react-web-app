@@ -2,16 +2,23 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "./client";
 import * as client from "./client";
+import { useAuth } from "../auth/AuthContext";
+
 export default function Signin() {
+
     const [credentials, setCredentials] = useState<User>({
         _id: "",
         username: "", password: "", firstName: "", lastName: "", role: "STUDENT"
     });
+
+    const { login } = useAuth();
+    
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const signin = async () => {
         try {
             await client.signin(credentials);
+            login();
             navigate("/Kanbas/Dashboard");
         } catch {
             setError("Invalid Credentials. Please try again.");
