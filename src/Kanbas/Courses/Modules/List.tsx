@@ -12,6 +12,7 @@ import {
 } from "./reducer";
 import { KanbasState } from "../../store";
 import * as client from "./client";
+import { useAuth } from "../../../auth/AuthContext";
 
 
 interface Lesson {
@@ -23,6 +24,7 @@ interface Lesson {
 
 function ModuleList() {
     const { courseId } = useParams();
+    const { userRole } = useAuth();
 
     const handleAddModule = () => {
         client.createModule(courseId, module).then((module) => {
@@ -57,11 +59,12 @@ function ModuleList() {
 
     return (
         <>
-            {/* <!-- Add buttons here --> */}
-            <input value={module.name} onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))}/> <br/><br/>
-            <textarea value={module.description} onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))} /><br/>
-            <button onClick={handleAddModule} className="btn btn-success">Add</button>
-            <button onClick={handleUpdateModule} className="btn btn-warning">Update</button>
+            {(userRole === "FACULTY" || userRole === "ADMIN") && (<>
+                <input value={module.name} onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))} /> <br /><br />
+                <textarea value={module.description} onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))} /><br />
+                <button onClick={handleAddModule} className="btn btn-success">Add</button>
+                <button onClick={handleUpdateModule} className="btn btn-warning">Update</button>
+            </>)}
             <ul className="list-group wd-modules">
                 {moduleList.filter((module) => module.course === courseId).map((module, index) => (
                     <li
@@ -77,14 +80,14 @@ function ModuleList() {
                                 <FaPlusCircle className="ms-2" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
-                            <span className="float-end">
-                            <button onClick={() => dispatch(setModule(module))} className="btn btn-warning">Edit</button>
-                            <button onClick={() => handleDeleteModule(module._id)} className="btn btn-danger">Delete</button>
-                        </span>
+                            {(userRole === "FACULTY" || userRole === "ADMIN") && (<span className="float-end">
+                                <button onClick={() => dispatch(setModule(module))} className="btn btn-warning">Edit</button>
+                                <button onClick={() => handleDeleteModule(module._id)} className="btn btn-danger">Delete</button>
+                            </span>)}
                         </div>
                         {selectedModule && selectedModule._id === module._id && (
                             <ul className="list-group">
-                                {module.lessons?.map((lesson : Lesson) => (
+                                {module.lessons?.map((lesson: Lesson) => (
                                     <li className="list-group-item">
                                         <FaEllipsisV className="me-2" />
                                         {lesson.name}

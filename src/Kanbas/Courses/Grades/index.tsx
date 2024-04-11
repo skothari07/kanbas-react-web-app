@@ -2,11 +2,15 @@ import { assignments, enrollments, grades, users } from "../../Database";
 import { useParams } from "react-router-dom";
 import "./index.css";
 import { FaCog, FaDownload, FaUpload,FaFilter } from "react-icons/fa";
+import { useAuth } from "../../../auth/AuthContext";
 
 function Grades() {
     const { courseId } = useParams();
     const as = assignments.filter((assignment) => assignment.course === courseId);
     const es = enrollments.filter((enrollment) => enrollment.course === courseId);
+    const { userRole } = useAuth();
+    const isEditable = (userRole === "FACULTY" || userRole === "ADMIN");
+
     return (
         <div>
             <div className="d-flex justify-content-end mb-3">
@@ -61,7 +65,7 @@ function Grades() {
                                         if (grade === undefined) {
                                                 return null;
                                         }
-                                        return (<td key={assignment._id} className="editable-cell" contentEditable="true">{grade?.grade || ""}</td>);
+                                        return (<td key={assignment._id} className="editable-cell" contentEditable={isEditable ? "true" : "false"}>{grade?.grade || ""}</td>);
                                     })}
                                 </tr>);
                         })}

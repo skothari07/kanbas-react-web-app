@@ -7,9 +7,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from "../../store";
 import { deleteAssignment, setAssignments } from "./reducer";
 import * as client from "./client";
+import { useAuth } from "../../../auth/AuthContext";
 
 function Assignments() {
     const { courseId } = useParams();
+    const { userRole } = useAuth();
 
     const handleDeleteAssignment = (assignmentId: string) => {
         client.deleteAssignment(assignmentId).then((status) => {
@@ -37,7 +39,7 @@ function Assignments() {
                 </div>
                 <div className="col-auto">
                     <button>+ Group</button>
-                    <Link to={`/Kanbas/Courses/${courseId}/Assignments/create`} className="wd-assignment-title"><button className="wd-assignments-bg-red">+ Assignment</button></Link>
+                    <Link to={`/Kanbas/Courses/${courseId}/Assignments/create`} className="wd-assignment-title"><button className="wd-assignments-bg-red" disabled={userRole === "STUDENT"}>+ Assignment</button></Link>
                     <button><FaEllipsisV /></button>
                 </div>
             </div>
@@ -67,7 +69,8 @@ function Assignments() {
                                 </div>
                                 <div className="col-auto">
                                     <span>
-                                        <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" /><button onClick={() => handleDeleteAssignment(assignment._id)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>
+                                            <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" />
+                                            {(userRole === "FACULTY" || userRole === "ADMIN") && (<button onClick={() => handleDeleteAssignment(assignment._id)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>)}
                                     </span>
                                 </div>
                             </div>

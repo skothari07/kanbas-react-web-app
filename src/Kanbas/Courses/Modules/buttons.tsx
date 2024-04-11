@@ -9,7 +9,7 @@ function ModulesButtons() {
                 <button className="btn btn-primary">View Progress</button>
                 <span>
                     <FaCheckCircle className="text-success" />
-                    <select>
+                    <select className="btn btn-success dropdown-toggle">
                         <option>Publish All</option>
                         <option>Unpublish All</option>
                     </select>
