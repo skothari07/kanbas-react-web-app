@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const API_BASE = process.env.REACT_APP_API_BASE1;
 const COURSES_API = `${API_BASE}/api/courses`;

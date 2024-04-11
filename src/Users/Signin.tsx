@@ -11,14 +11,15 @@ export default function Signin() {
         username: "", password: "", firstName: "", lastName: "", role: "STUDENT"
     });
 
-    const { login } = useAuth();
+    const { login, currRole } = useAuth();
     
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const signin = async () => {
         try {
-            await client.signin(credentials);
+            const response = await client.signin(credentials);
             login();
+            currRole(response.role);
             navigate("/Kanbas/Dashboard");
         } catch {
             setError("Invalid Credentials. Please try again.");

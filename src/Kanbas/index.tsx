@@ -10,6 +10,7 @@ import axios from "axios";
 import store from "./store";
 import { Provider } from "react-redux";
 import Account from "./Account";
+axios.defaults.withCredentials = true;
 
 function Kanbas() {
 
