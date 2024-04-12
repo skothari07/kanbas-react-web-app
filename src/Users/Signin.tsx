@@ -11,7 +11,7 @@ export default function Signin() {
         username: "", password: "", firstName: "", lastName: "", role: "STUDENT"
     });
 
-    const { login, currRole } = useAuth();
+    const { login, setUser } = useAuth();
     
     const navigate = useNavigate();
     const [error, setError] = useState("");
@@ -19,8 +19,8 @@ export default function Signin() {
         try {
             const response = await client.signin(credentials);
             login();
-            currRole(response.role);
-            navigate("/Kanbas/Dashboard");
+            setUser(response);
+            navigate("/Kanbas/Account/Profile");
         } catch {
             setError("Invalid Credentials. Please try again.");
         }

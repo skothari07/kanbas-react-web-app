@@ -24,7 +24,7 @@ interface Lesson {
 
 function ModuleList() {
     const { courseId } = useParams();
-    const { userRole } = useAuth();
+    const { user } = useAuth();
 
     const handleAddModule = () => {
         client.createModule(courseId, module).then((module) => {
@@ -59,7 +59,7 @@ function ModuleList() {
 
     return (
         <>
-            {(userRole === "FACULTY" || userRole === "ADMIN") && (<>
+            {(user?.role === "FACULTY" || user?.role === "ADMIN") && (<>
                 <input value={module.name} onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))} /> <br /><br />
                 <textarea value={module.description} onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))} /><br />
                 <button onClick={handleAddModule} className="btn btn-success">Add</button>
@@ -80,7 +80,7 @@ function ModuleList() {
                                 <FaPlusCircle className="ms-2" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
-                            {(userRole === "FACULTY" || userRole === "ADMIN") && (<span className="float-end">
+                            {(user?.role === "FACULTY" || user?.role === "ADMIN") && (<span className="float-end">
                                 <button onClick={() => dispatch(setModule(module))} className="btn btn-warning">Edit</button>
                                 <button onClick={() => handleDeleteModule(module._id)} className="btn btn-danger">Delete</button>
                             </span>)}

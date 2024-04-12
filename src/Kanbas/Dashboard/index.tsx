@@ -9,12 +9,12 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
         updateCourse: () => void;
     }){
     
-    const { userRole } = useAuth();
+    const { user } = useAuth();
 
     return (
         <div className="p-4">
             <h1>Dashboard</h1> <hr />
-            {(userRole === 'FACULTY'|| userRole === 'ADMIN') && (<>
+            {(user?.role === 'FACULTY'|| user?.role === 'ADMIN') && (<>
                 <h5>Course</h5>
                 <input value={course.name} className="form-control" onChange={(e) => setCourse({ ...course, name: e.target.value })} />
                 <input value={course.number} className="form-control" onChange={(e) => setCourse({ ...course, number: e.target.value })} />
@@ -38,7 +38,7 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
                                     <p className="card-text">{course.name}</p>
                                     <Link to={`/Kanbas/Courses/${course._id}/Home`} className="btn btn-primary">
                                         Go </Link>
-                                    {(userRole === 'FACULTY'|| userRole === 'ADMIN') && (<><button onClick={(event) => {
+                                    {(user?.role === 'FACULTY'|| user?.role === 'ADMIN') && (<><button onClick={(event) => {
                                         event.preventDefault();
                                         setCourse(course);
                                     }} className="btn btn-warning">

@@ -8,8 +8,8 @@ function Grades() {
     const { courseId } = useParams();
     const as = assignments.filter((assignment) => assignment.course === courseId);
     const es = enrollments.filter((enrollment) => enrollment.course === courseId);
-    const { userRole } = useAuth();
-    const isEditable = (userRole === "FACULTY" || userRole === "ADMIN");
+    const { user } = useAuth();
+    const isEditable = (user?.role === "FACULTY" || user?.role === "ADMIN");
 
     return (
         <div>

@@ -1,25 +1,66 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
+
+interface User {
+  username: String,
+  password: String,
+  firstName: String,
+  email: String,
+  lastName: String,
+  dob: Date,
+  role: String
+}
 
 interface AuthContextType {
-  userRole: String,
+  user: User | null;
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
-  currRole: (role: String) => void;
+  setUser: (user: User | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
 
-  const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
-  const currRole = (role: any) => setUserRole(role);
+  const [user, setUser] = useState<User | null>(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  const login = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem('isAuthenticated', 'true');
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('user');
+  };
+
+  const setUserDetails = (userData: User | null) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  useEffect(() => {
+    const storedIsAuthenticated = localStorage.getItem('isAuthenticated');
+    const storedUser = localStorage.getItem('user');
+    
+    if (storedIsAuthenticated) {
+      setIsAuthenticated(storedIsAuthenticated === 'true');
+    }
+    
+    if (storedUser) {
+      setUserDetails(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ userRole, isAuthenticated, login, logout, currRole }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, setUser: setUserDetails }}>
       {children}
     </AuthContext.Provider>
   );
