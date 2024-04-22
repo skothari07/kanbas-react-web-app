@@ -14,7 +14,7 @@ axios.defaults.withCredentials = true;
 
 function Kanbas() {
 
-    const API_BASE = process.env.REACT_APP_API_BASE1;
+    const API_BASE = process.env.REACT_APP_API_BASE2;
     const [courses, setCourses] = useState<any[]>([]);
 
     const COURSES_API = `${API_BASE}/api/courses`;

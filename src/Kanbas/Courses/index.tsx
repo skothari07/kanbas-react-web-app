@@ -6,16 +6,18 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
+import QuizEditor from "./Quiz/Editor";
 import Grades from "./Grades";
 import { TbSunglasses } from "react-icons/tb";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Quizzes from "./Quiz";
 axios.defaults.withCredentials = true;
 
 function Courses() {
     const { courseId } = useParams();
     const location = useLocation();
-    const API_BASE = process.env.REACT_APP_API_BASE1;
+    const API_BASE = process.env.REACT_APP_API_BASE2;
     const COURSES_API = `${API_BASE}/api/courses`;
 
     const [course, setCourse] = useState<any>({ _id: "" });
@@ -55,6 +57,9 @@ function Courses() {
                         <Route path="Assignments" element={<Assignments />} />
                         <Route path="Assignments/:assignmentId" element={<AssignmentEditor />} />
                         <Route path="Assignments/create" element={<AssignmentEditor />} />
+                        <Route path="Quizzes" element={<Quizzes />} />
+                        <Route path="Quizzes/:quizId" element={<QuizEditor />} />
+                        <Route path="Quizzes/create" element={<QuizEditor />} />
                         <Route path="Grades" element={<Grades />} />
                     </Routes>
                 </div>

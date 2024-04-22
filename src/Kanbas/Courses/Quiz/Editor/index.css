@@ -1,0 +1,24 @@
+.wd-quiz-published{
+    color: green;
+}
+
+.wd-quiz-edit-bg-red{
+    background-color: red;
+}
+.wd-quiz-edit-txt-white{
+    color: white;
+}
+
+.wd-form-border{
+    border: 1px black solid;
+    padding: 3px;
+}
+
+.wd-quiz-btn-width{
+    width: 100%;
+}
+
+.wd-quiz-editor-btn {
+    text-decoration: none;
+    color: black;
+}
