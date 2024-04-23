@@ -43,7 +43,19 @@ function Quizzes() {
             );
     }, [courseId]);
     
+    function getAvailabilityStatus(quiz: any) {
+        const currentDate = new Date();
+        const availableDate = new Date(quiz.available_date);
+        const availableUntilDate = new Date(quiz.until_date);
     
+        if (currentDate > availableUntilDate) {
+            return "Closed";
+        } else if (currentDate >= availableDate && currentDate <= availableUntilDate) {
+            return "Available";
+        } else {
+            return `Not available until ${availableDate.toDateString()}`;
+        }
+    }
     
     const dispatch = useDispatch();
     return (
@@ -82,7 +94,7 @@ function Quizzes() {
                                             </Link>
                                         )}</p>
                                         <p className="mb-0 wd-quiz-text-xs text-muted">{quiz.desc}</p>
-                                        <p className="mb-0 wd-quiz-text-xs text-muted"><b>{new Date(quiz.due_date) < new Date() ? "Unavailable" : "Available"}</b> | <b>Due:</b> {new Date(quiz.due_date).toDateString()} | <b>Points:</b> {quiz.points}</p>
+                                        <p className="mb-0 wd-quiz-text-xs text-muted"><b>{getAvailabilityStatus(quiz)}</b> | <b>Due:</b> {new Date(quiz.due_date).toDateString()} | <b>Points:</b> {quiz.points} | {quiz.questions.length } Questions</p>
                                     </div>
                                     <div className="col-auto">
                                         <span>

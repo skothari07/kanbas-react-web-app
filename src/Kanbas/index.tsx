@@ -20,12 +20,34 @@ function Kanbas() {
     const [courses, setCourses] = useState<any[]>([]);
 
     const COURSES_API = `${API_BASE}/api/courses`;
+
+    const getCourses = () => {
+        if (user?.role === "FACULTY") {
+            findFacultyCourses();
+        } else if (user?.role === "STUDENT") {
+            findStudentCourses();
+        } else {
+            findAllCourses();
+        }
+    }
+
     const findAllCourses = async () => {
         const response = await axios.get(COURSES_API);
         setCourses(response.data);
     };
+
+    const findFacultyCourses = async () => {
+        const response = await axios.get(`${COURSES_API}/instructor/${user?.username}`);
+        setCourses(response.data);
+    };
+
+    const findStudentCourses = async () => {
+        const response = await axios.get(`${COURSES_API}/student/${user?.username}`);
+        setCourses(response.data);
+    };
+
     useEffect(() => {
-        findAllCourses();
+        getCourses();
     }, []);
 
     const [course, setCourse] = useState({
