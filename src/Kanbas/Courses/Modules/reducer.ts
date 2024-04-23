@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface Module {
-    _id: string;
+    mid: string;
     name: string;
     description: string;
     course: string,
@@ -15,7 +15,7 @@ interface ModuleState {
 
 const initialState: ModuleState = {
     modules: [],
-    module: { _id: "", name: "New Module 123", description: "New Description", course: "",lessons: [] },
+    module: { mid: "", name: "New Module 123", description: "New Description", course: "",lessons: [] },
 };
 
 
@@ -25,18 +25,18 @@ const modulesSlice = createSlice({
     reducers: {
         addModule: (state, action) => {
             state.modules = [
-                { ...action.payload, _id: new Date().getTime().toString() },
+                { ...action.payload,},
                 ...state.modules,
             ];
         },
         deleteModule: (state, action) => {
             state.modules = state.modules.filter(
-                (module) => module._id !== action.payload
+                (module) => module.mid !== action.payload
             );
         },
         updateModule: (state, action) => {
             state.modules = state.modules.map((module) => {
-                if (module._id === action.payload._id) {
+                if (module.mid === action.payload.mid) {
                     return action.payload;
                 } else {
                     return module;

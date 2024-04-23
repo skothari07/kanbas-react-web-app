@@ -10,9 +10,11 @@ import axios from "axios";
 import store from "./store";
 import { Provider } from "react-redux";
 import Account from "./Account";
+import { useAuth } from "../auth/AuthContext";
 axios.defaults.withCredentials = true;
 
 function Kanbas() {
+    const { user } = useAuth();
 
     const API_BASE = process.env.REACT_APP_API_BASE2;
     const [courses, setCourses] = useState<any[]>([]);
@@ -27,9 +29,9 @@ function Kanbas() {
     }, []);
 
     const [course, setCourse] = useState({
-        _id: "0", name: "New Course", number: "New Number",
+        courseId: "0", name: "New Course",
         startDate: "2023-09-10", endDate: "2023-12-15",
-        image: "/images/reactjs.jpg"
+        image: "/images/reactjs.jpg", instructor: user?.username
     });
 
     const addNewCourse = async () => {
@@ -42,17 +44,17 @@ function Kanbas() {
             `${COURSES_API}/${courseId}`
         );
         setCourses(courses.filter(
-            (c) => c._id !== courseId));
+            (c) => c.courseId !== courseId));
     };
 
     const updateCourse = async () => {
         const response = await axios.put(
-            `${COURSES_API}/${course._id}`,
+            `${COURSES_API}/${course.courseId}`,
             course
         );
         setCourses(
             courses.map((c) => {
-                if (c._id === course._id) {
+                if (c.courseId === course.courseId) {
                     return course;
                 }
                 return c;

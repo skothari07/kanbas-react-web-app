@@ -16,8 +16,8 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
             <h1>Dashboard</h1> <hr />
             {(user?.role === 'FACULTY'|| user?.role === 'ADMIN') && (<>
                 <h5>Course</h5>
-                <input value={course.name} className="form-control" onChange={(e) => setCourse({ ...course, name: e.target.value })} />
-                <input value={course.number} className="form-control" onChange={(e) => setCourse({ ...course, number: e.target.value })} />
+                <input value={course.name} className="form-control" onChange={(e) => setCourse({ ...course, name: e.target.value})} />
+                {/*<input value={course.number} className="form-control" onChange={(e) => setCourse({ ...course, number: e.target.value })} />*/}
                 <input value={course.startDate} className="form-control" type="date" onChange={(e) => setCourse({ ...course, startDate: e.target.value })} />
                 <input value={course.endDate} className="form-control" type="date" onChange={(e) => setCourse({ ...course, endDate: e.target.value })} />
                 <button onClick={addNewCourse} className="btn btn-success">Add</button>
@@ -27,16 +27,16 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
             <div className="row">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
                     {courses.map((course) => (
-                        <div key={course._id} className="col" style={{ width: 300 }}>
+                        <div key={course.courseId} className="col" style={{ width: 300 }}>
                             <div className="card">
                                 <img src={`/images/${course.image}`} className="card-img-top" style={{ height: 150 }} alt={course.image} />
                                 <div className="card-body">
-                                    <Link className="card-title" to={`/Kanbas/Courses/${course._id}/Home`}
+                                    <Link className="card-title" to={`/Kanbas/Courses/${course.courseId}/Home`}
                                         style={{ textDecoration: "none", color: "navy", fontWeight: "bold" }}>
                                         {course.name}
                                     </Link>
                                     <p className="card-text">{course.name}</p>
-                                    <Link to={`/Kanbas/Courses/${course._id}/Home`} className="btn btn-primary">
+                                    <Link to={`/Kanbas/Courses/${course.courseId}/Home`} className="btn btn-primary">
                                         Go </Link>
                                     {(user?.role === 'FACULTY'|| user?.role === 'ADMIN') && (<><button onClick={(event) => {
                                         event.preventDefault();
@@ -46,7 +46,7 @@ function Dashboard({ courses, course, setCourse, addNewCourse,
                                     </button>
                                         <button onClick={(event) => {
                                             event.preventDefault();
-                                            deleteCourse(course._id);
+                                            deleteCourse(course.courseId);
                                         }} className="btn btn-danger">
                                             Delete
                                         </button>

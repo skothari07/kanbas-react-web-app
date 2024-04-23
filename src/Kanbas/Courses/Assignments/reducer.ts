@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface Assignment {
-    _id: string;
+    aid: string;
     title: string;
     desc: string;
     due_date: Date | null;
@@ -16,7 +16,7 @@ interface AssignmentsState {
 
 const initialState: AssignmentsState = {
     assignments: [],
-    assignment: { _id: "", title: "New Module 123", desc: "New Description", due_date: null, points: 0, course: "" },
+    assignment: { aid: "", title: "New Assignment 123", desc: "New Description", due_date: null, points: 0, course: "" },
 };
 
 const assignmentsSlice = createSlice({
@@ -25,18 +25,18 @@ const assignmentsSlice = createSlice({
     reducers: {
         addAssignment: (state, action) => {
             state.assignments = [
-                { ...action.payload, _id: new Date().getTime().toString() },
+                { ...action.payload },
                 ...state.assignments,
             ];
         },
         deleteAssignment: (state, action) => {
             state.assignments = state.assignments.filter(
-                (assignment) => assignment._id !== action.payload
+                (assignment) => assignment.aid !== action.payload
             );
         },
         updateAssignment: (state, action) => {
             state.assignments = state.assignments.map((assignment) => {
-                if (assignment._id === action.payload._id) {
+                if (assignment.aid === action.payload.aid) {
                     return action.payload;
                 } else {
                     return assignment;

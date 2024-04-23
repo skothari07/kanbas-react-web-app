@@ -56,21 +56,21 @@ function Assignments() {
                     </div>
                     <ul className="list-group">
                         {assignmentList.filter((assignment) => assignment.course === courseId).map((assignment) => (
-                            <li className="list-group-item" key={assignment._id}>
+                            <li className="list-group-item" key={assignment.aid}>
                             <div className="row align-items-center">
                                 <div className="col-auto">
                                     <FaEllipsisV className="me-2" />
                                     <BsPencilSquare />
                                 </div>
                                 <div className="col wd-assignment-details">
-                                    <p className="mb-1"><Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} className="wd-assignment-title">{assignment.title}</Link></p>
+                                    <p className="mb-1"><Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment.aid}`} className="wd-assignment-title">{assignment.title}</Link></p>
                                     <p className="mb-0 wd-assignments-text-xs text-muted">{assignment.desc}</p>
                                         <p className="mb-0 wd-assignments-text-xs text-muted">Due {new Date(assignment.due_date).toDateString()} | {assignment.points}</p>
                                 </div>
                                 <div className="col-auto">
                                     <span>
                                             <FaCheckCircle className="text-success" /><FaEllipsisV className="ms-2" />
-                                            {(user?.role === "FACULTY" || user?.role === "ADMIN") && (<button onClick={() => handleDeleteAssignment(assignment._id)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>)}
+                                            {(user?.role === "FACULTY" || user?.role === "ADMIN") && (<button onClick={() => handleDeleteAssignment(assignment.aid)} className="wd-assignments-edit-bg-red wd-assignments-edit-txt-white">Delete</button>)}
                                     </span>
                                 </div>
                             </div>

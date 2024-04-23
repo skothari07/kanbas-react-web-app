@@ -16,7 +16,7 @@ import { useAuth } from "../../../auth/AuthContext";
 
 
 interface Lesson {
-    _id: string;
+    lid: string;
     name: string;
     description: string;
     module: string;
@@ -82,10 +82,10 @@ function ModuleList() {
                             </span>
                             {(user?.role === "FACULTY" || user?.role === "ADMIN") && (<span className="float-end">
                                 <button onClick={() => dispatch(setModule(module))} className="btn btn-warning">Edit</button>
-                                <button onClick={() => handleDeleteModule(module._id)} className="btn btn-danger">Delete</button>
+                                <button onClick={() => handleDeleteModule(module.mid)} className="btn btn-danger">Delete</button>
                             </span>)}
                         </div>
-                        {selectedModule && selectedModule._id === module._id && (
+                        {selectedModule && selectedModule.mid === module.mid && (
                             <ul className="list-group">
                                 {module.lessons?.map((lesson: Lesson) => (
                                     <li className="list-group-item">

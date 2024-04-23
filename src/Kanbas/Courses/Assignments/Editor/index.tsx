@@ -37,7 +37,7 @@ function AssignmentEditor() {
     
     if(typeof assignmentId !== 'undefined'){
     currAassignment = assignmentList.find(
-        (assignment) => assignment._id === assignmentId);
+        (assignment) => assignment.aid === assignmentId);
     }
     
     const [assignment, setAssignmentDetails] = useState(currAassignment);

@@ -20,7 +20,7 @@ function Courses() {
     const API_BASE = process.env.REACT_APP_API_BASE2;
     const COURSES_API = `${API_BASE}/api/courses`;
 
-    const [course, setCourse] = useState<any>({ _id: "" });
+    const [course, setCourse] = useState<any>({ courseId: "" });
     const findCourseById = async (courseId?: string) => {
         const response = await axios.get(
             `${COURSES_API}/${courseId}`
