@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react";
 import { FaCheckCircle, FaEllipsisV, FaBan, FaCaretDown } from "react-icons/fa";
 import { MdOutlineRocketLaunch } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import './index.css';
 import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from "../../store";
@@ -12,6 +12,7 @@ import { useAuth } from "../../../auth/AuthContext";
 function Quizzes() {
     const { courseId } = useParams();
     const { user } = useAuth();
+    const navigate = useNavigate();
     const quizList = useSelector((state: KanbasState) =>
         state.quizzesReducer.quizzes);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean[]>(Array(quizList.length).fill(false));
@@ -27,7 +28,7 @@ function Quizzes() {
         dispatch(deleteQuiz(quizId));
     };
     const handleEditQuiz = async (quiz: any) => {
-        <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}/>
+        navigate(`/Kanbas/Courses/${courseId}/Quiz/${quiz.qid}`);
     };
 
     const handlePublishQuiz = (quiz: any, publish: boolean) => {
@@ -77,7 +78,7 @@ function Quizzes() {
                     </div>
                     <ul className="list-group">
                         {quizList.filter((quiz) => quiz.course === courseId).map((quiz, index) => (
-                            <li className="list-group-item" key={quiz._id}>
+                            <li className="list-group-item" key={quiz.qid}>
                                 <div className="row align-items-center">
                                     <div className="col-auto">
                                         <FaEllipsisV className="me-2" />
@@ -89,7 +90,7 @@ function Quizzes() {
                                                 {quiz.title}
                                             </span>
                                         ) : (
-                                            <Link to={`/Kanbas/Courses/${courseId}/Quiz/${quiz._id}`} className="wd-quiz-title">
+                                            <Link to={`/Kanbas/Courses/${courseId}/Quiz/${quiz.qid}`} className="wd-quiz-title">
                                                 {quiz.title}
                                             </Link>
                                         )}</p>
@@ -105,7 +106,7 @@ function Quizzes() {
                                                 {isMenuOpen[index] && (
                                                     <div className="col-auto dropdown-menu show">
                                                         <button className="dropdown-item" onClick={() => handleEditQuiz(quiz)}>Edit</button>
-                                                        <button className="dropdown-item" onClick={() => handleDeleteQuiz(quiz._id)}>Delete</button>
+                                                        <button className="dropdown-item" onClick={() => handleDeleteQuiz(quiz.qid)}>Delete</button>
                                                         <button className="dropdown-item" onClick={() => handlePublishQuiz(quiz, !quiz.isPublished)}>{quiz.isPublished ? "Unpublish": "Publish" }</button>
                                                     </div>
                                                 )}

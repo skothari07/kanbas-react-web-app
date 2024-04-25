@@ -9,14 +9,26 @@ interface Question {
 }
 
 interface Quiz {
-    _id: string;
+    qid: string;
     title: string;
     desc: string;
-    due_date: Date | null;
     points: number;
-    course: string;
+    quiz_type: "Graded Quiz" | "Practice Quiz" | "Graded Survey" | "Ungraded Survey";
+    assignment_group: "Quizzes" | "Exams" | "Assignments" | "Project";
+    shuffle_answers: boolean;
+    time_limit: number;
+    multiple_attempts: boolean;
+    show_correct_answers: boolean;
+    access_code: string;
+    one_question: boolean;
+    webcam_required: boolean;
+    lock_questions: boolean;
+    available: Date;
+    due_date: Date | null;
+    until_date: Date;
     isPublished: Boolean;
-    questions: [Question] ;
+    course: string; // or you can use a specific type for course
+    questions: [Question];
 }
 
 interface QuizzesState {
@@ -26,7 +38,21 @@ interface QuizzesState {
 
 const initialState: QuizzesState = {
     quizzes: [],
-    quiz: { _id: "", title: "New Quiz", desc: "New Description", due_date: null, points: 0, course: "", isPublished: false, questions: [{quizId: "", description: "", options:[], type: "", answers:[]}] },
+    quiz: {
+        qid: "", title: "New Quiz", desc: "New Description", due_date: null, points: 0, course: "", isPublished: false, questions: [{ quizId: "", description: "", options: [], type: "", answers: [] }],
+        quiz_type: "Graded Quiz",
+        assignment_group: "Quizzes",
+        shuffle_answers: false,
+        time_limit: 0,
+        multiple_attempts: false,
+        show_correct_answers: false,
+        access_code: "",
+        one_question: false,
+        webcam_required: false,
+        lock_questions: false,
+        available: new Date(),
+        until_date: new Date()
+    },
 };
 
 const quizzesSlice = createSlice({
@@ -35,18 +61,20 @@ const quizzesSlice = createSlice({
     reducers: {
         addQuiz: (state, action) => {
             state.quizzes = [
-                { ...action.payload, _id: new Date().getTime().toString() },
+                { ...action.payload, },
                 ...state.quizzes,
             ];
         },
         deleteQuiz: (state, action) => {
             state.quizzes = state.quizzes.filter(
-                (quiz) => quiz._id !== action.payload
+                (quiz) => quiz.qid !== action.payload
             );
         },
         updateQuiz: (state, action) => {
             state.quizzes = state.quizzes.map((quiz) => {
-                if (quiz._id === action.payload._id) {
+                console.log(action.payload);
+                if (quiz.qid === action.payload.qid) {
+                    console.log(action.payload)
                     return action.payload;
                 } else {
                     return quiz;

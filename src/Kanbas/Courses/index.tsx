@@ -12,6 +12,8 @@ import { TbSunglasses } from "react-icons/tb";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Quizzes from "./Quiz";
+import QuizDetails from "./Quiz/Details";
+import QuizPreview from "./Quiz/Preview";
 axios.defaults.withCredentials = true;
 
 function Courses() {
@@ -58,8 +60,10 @@ function Courses() {
                         <Route path="Assignments/:assignmentId" element={<AssignmentEditor />} />
                         <Route path="Assignments/create" element={<AssignmentEditor />} />
                         <Route path="Quizzes" element={<Quizzes />} />
-                        <Route path="Quizzes/:quizId" element={<QuizEditor />} />
-                        <Route path="Quizzes/create" element={<QuizEditor />} />
+                        <Route path="Quiz/:quizId" element={<QuizDetails />} />
+                        <Route path="Quizzes/create" element={<QuizEditor />} />\
+                        <Route path="Quizzes/edit/:quizId" element={<QuizEditor />} />
+                        <Route path="Quizzes/preview/:quizId" element={<QuizPreview />} />
                         <Route path="Grades" element={<Grades />} />
                     </Routes>
                 </div>

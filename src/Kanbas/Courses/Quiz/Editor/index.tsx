@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { FaCheckCircle, FaEllipsisV } from "react-icons/fa";
-import "./index.css";
-import {
-    addQuiz,
-    updateQuiz,
-} from "../reducer";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 import { KanbasState } from "../../../store";
-import { useSelector, useDispatch } from "react-redux";
 import * as client from "../client";
+import { setQuizzes, updateQuiz } from "../reducer";
+import { FaBan, FaCheckCircle } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { Tabs, Tab } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 
@@ -18,46 +17,52 @@ function QuizEditor() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleAddQuiz = () => {
-        client.createQuiz(courseId, quiz).then((quiz: any) => {
-            dispatch(addQuiz(quiz));
-        });
-    };
-
-    const handleUpdateQuiz = async () => {
-        const status = await client.updateQuiz(quiz);
-        dispatch(updateQuiz(quiz));
-    };
-    
     const quizList = useSelector((state: KanbasState) =>
         state.quizzesReducer.quizzes);
-    
+
     let currQuiz = useSelector((state: KanbasState) =>
         state.quizzesReducer.quiz);
     
     if(typeof quizId !== 'undefined'){
     currQuiz = quizList.find(
-        (quiz) => quiz._id === quizId);
+        (quiz) => quiz.qid === quizId);
     }
-    
-    const [quiz, setQuizDetails] = useState(currQuiz);
 
-    const handleSave = () => {
-        if (quizId === undefined) {
-            handleAddQuiz();
-        } else {
-            handleUpdateQuiz();
-        }
-        navigate(`/Kanbas/Courses/${courseId}/Quiz`);
-    };
+    const [quiz, setQuizDetails] = useState<any>(currQuiz);
+    
+    const calculatePoints = (questions: any) => {
+        let points = 0;
+        questions.forEach((question: any) => {
+            points += question.points;
+        });
+        return points;
+    }
+
+    useEffect(() => {
+        client.findQuizzesForCourse(courseId)
+            .then((quizzes) =>
+                dispatch(setQuizzes(quizzes))
+            );
+    }, [courseId, quizId]);
 
     return (
-        <div>
+        <>
             <div className="d-flex justify-content-end">
-                <span className="wd-quiz-published"><FaCheckCircle className="text-success" /> Published</span>
-                <button><FaEllipsisV /></button>
+                <span>
+                    <b>Points:</b> {quiz.points} &nbsp; &nbsp;
+                </span>
+                <span>
+                    {quiz.isPublished ? (<><FaCheckCircle style={{ color: "green" }} />  Published</>) : (<><FaBan />  Unpublished</>)} &nbsp;
+                </span>
+                <span>
+                    <BsThreeDotsVertical />&nbsp;
+                </span>
             </div>
             <hr />
+            <br />
+            <Tabs defaultActiveKey="details">
+                <Tab eventKey="details" title="Details">
+                <div>
             <form>
                 <div className="form-group mb-4">
                     <label htmlFor="quizName">Quiz Name</label>
@@ -65,7 +70,7 @@ function QuizEditor() {
                     } />
                 </div>
                 <div className="form-group mb-4">
-                    <textarea className="form-control" id="inputTextarea" rows={4} defaultValue={quiz.desc} onChange={(e) =>
+                    <textarea className="form-control" id="inputTextarea" rows={4} defaultValue={quiz?.desc} onChange={(e) =>
                         setQuizDetails({ ...quiz, desc: e.target.value })
                     }></textarea>
                 </div>
@@ -150,10 +155,18 @@ function QuizEditor() {
                 </div>
                 <div className="col-2 float-end">
                     <button><Link to={`/Kanbas/Courses/${courseId}/Quiz`} className="wd-quiz-editor-btn">Cancel</Link></button>
-                    <button onClick={() => handleSave()} className="wd-quiz-edit-bg-red wd-quiz-edit-txt-white">Save</button>
+                    <button className="wd-quiz-edit-bg-red wd-quiz-edit-txt-white">Save</button>
                 </div>
             </div>
         </div>
+
+                </Tab>
+                <Tab eventKey="questions" title="Questions"></Tab>
+            </Tabs>
+
+
+
+        </>
     );
 }
 export default QuizEditor;
