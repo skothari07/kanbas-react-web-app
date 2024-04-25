@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface Question {
-    quizId: string;
     description: string;
-    options: [];
-    type: string;
-    answers: [];
+    points: Number,
+    question_type: string;
+    options: [{
+        text: String,
+        isCorrect: Boolean
+    }];
+    trueFalse : Boolean,
+    blanks:[{
+        answer: String
+    }]
 }
 
 interface Quiz {
@@ -16,6 +22,7 @@ interface Quiz {
     quiz_type: "Graded Quiz" | "Practice Quiz" | "Graded Survey" | "Ungraded Survey";
     assignment_group: "Quizzes" | "Exams" | "Assignments" | "Project";
     shuffle_answers: boolean;
+    isTimeLimit: Boolean;
     time_limit: number;
     multiple_attempts: boolean;
     show_correct_answers: boolean;
@@ -23,35 +30,40 @@ interface Quiz {
     one_question: boolean;
     webcam_required: boolean;
     lock_questions: boolean;
-    available: Date;
+    available: Date | null;
     due_date: Date | null;
-    until_date: Date;
+    until_date: Date | null;
     isPublished: Boolean;
-    course: string; // or you can use a specific type for course
-    questions: [Question];
+    course: string;
+    questions: [Question] | [];
 }
 
 interface QuizzesState {
     quizzes: Quiz[];
     quiz: Quiz;
+    question: Question;
+    questions: Question[];
 }
 
 const initialState: QuizzesState = {
     quizzes: [],
+    questions: [],
+    question: { description: "", points: 0, options: [{ text: "", isCorrect: false }], question_type: "", trueFalse: false, blanks: [{answer: ""}] },
     quiz: {
-        qid: "", title: "New Quiz", desc: "New Description", due_date: null, points: 0, course: "", isPublished: false, questions: [{ quizId: "", description: "", options: [], type: "", answers: [] }],
+        qid: "", title: "New Quiz", desc: "New Description", due_date: null, points: 0, course: "", isPublished: false, questions: [],
         quiz_type: "Graded Quiz",
         assignment_group: "Quizzes",
-        shuffle_answers: false,
-        time_limit: 0,
+        shuffle_answers: true,
+        isTimeLimit: true,
+        time_limit: 20,
         multiple_attempts: false,
         show_correct_answers: false,
         access_code: "",
-        one_question: false,
+        one_question: true,
         webcam_required: false,
         lock_questions: false,
-        available: new Date(),
-        until_date: new Date()
+        available: null,
+        until_date: null
     },
 };
 
@@ -72,9 +84,7 @@ const quizzesSlice = createSlice({
         },
         updateQuiz: (state, action) => {
             state.quizzes = state.quizzes.map((quiz) => {
-                console.log(action.payload);
                 if (quiz.qid === action.payload.qid) {
-                    console.log(action.payload)
                     return action.payload;
                 } else {
                     return quiz;
