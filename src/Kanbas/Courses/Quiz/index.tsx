@@ -16,7 +16,7 @@ function Quizzes() {
     const quizList = useSelector((state: KanbasState) =>
         state.quizzesReducer.quizzes);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean[]>(Array(quizList.length).fill(false));
-
+    
     const handleToggleMenu = (index: any) => {
         const newIsMenuOpen = [...isMenuOpen];
         newIsMenuOpen[index] = !newIsMenuOpen[index];
@@ -91,11 +91,11 @@ function Quizzes() {
                                             </span>
                                         ) : (
                                             <Link to={`/Kanbas/Courses/${courseId}/Quiz/${quiz.qid}`} className="wd-quiz-title">
-                                                {quiz.title}
+                                                    {quiz.title}
                                             </Link>
                                         )}</p>
                                         <p className="mb-0 wd-quiz-text-xs text-muted">{quiz.desc}</p>
-                                        <p className="mb-0 wd-quiz-text-xs text-muted"><b>{getAvailabilityStatus(quiz)}</b> | <b>Due:</b> {new Date(quiz.due_date).toDateString()} | <b>Points:</b> {quiz.points} | {quiz.questions.length } Questions</p>
+                                        <p className="mb-0 wd-quiz-text-xs text-muted"><b>{getAvailabilityStatus(quiz)}</b> | <b>Due:</b> {new Date(quiz.due_date).toDateString()} | <b>Points:</b> {quiz.points} | {quiz.questions?.length ?? 0} Questions</p>
                                     </div>
                                     <div className="col-auto">
                                         <span>

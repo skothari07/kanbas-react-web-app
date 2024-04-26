@@ -35,3 +35,28 @@ export const updateQuiz = async (quiz: any) => {
     const response = await axios.put(`${QUIZ_API}/${quiz.qid}`, quiz);
     return response.data;
 };
+
+export const findQuestionsByQuiz = async (quizId: any) => {
+    const response = await axios
+        .get(`${COURSES_API}/${quizId}/questions`);
+    return response.data;
+};
+
+export const createQuestion = async (question: any) => {
+    const response = await axios.post(
+        `${COURSES_API}/quiz/question/create`,
+        question
+    );
+    return response.data;
+};
+
+export const deleteQuestion = async (questionId: any) => {
+    const response = await axios
+        .delete(`${COURSES_API}/quiz/question/${questionId}`);
+    return response.data;
+};
+
+export const updateQuestion = async (question: any) => {
+    const response = await axios.put(`${COURSES_API}/quiz/question/${question.questionId}`, question);
+    return response.data;
+};

@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface Question {
+    questionId: string;
+    title: String;
     description: string;
-    points: Number,
-    question_type: string;
-    options: [{
-        text: String,
-        isCorrect: Boolean
-    }];
-    trueFalse : Boolean,
-    blanks:[{
-        answer: String
-    }]
+    points: Number;
+    question_type: "Multiple Choice" | "Fill in the blanks" | "True False";
+    options: [];
+    correctChoiceIndex: number ;
+    blanks:any[]
 }
 
 interface Quiz {
@@ -35,7 +32,7 @@ interface Quiz {
     until_date: Date | null;
     isPublished: Boolean;
     course: string;
-    questions: [Question] | [];
+    questions: [];
 }
 
 interface QuizzesState {
@@ -48,7 +45,7 @@ interface QuizzesState {
 const initialState: QuizzesState = {
     quizzes: [],
     questions: [],
-    question: { description: "", points: 0, options: [{ text: "", isCorrect: false }], question_type: "", trueFalse: false, blanks: [{answer: ""}] },
+    question: { questionId: "", title: "", description: "", points: 0, options: [], question_type: "Multiple Choice", correctChoiceIndex: 1, blanks: [] },
     quiz: {
         qid: "", title: "New Quiz", desc: "New Description", due_date: null, points: 0, course: "", isPublished: false, questions: [],
         quiz_type: "Graded Quiz",
@@ -99,9 +96,25 @@ const quizzesSlice = createSlice({
         setQuizzes: (state, action) => {
             state.quizzes = action.payload;
         },
+        setQuestion: (state, action) => {
+            state.question = action.payload;
+        },
+
+        setQuestions: (state, action) => {
+            state.questions = action.payload;
+        },
+        updateQuestion: (state, action) => {
+            state.question = action.payload;
+        },
+        addQuestion: (state, action) => {
+            state.questions = [
+                ...state.questions,
+                action.payload,
+            ];
+        },
     },
 });
 export const { addQuiz, deleteQuiz,
-    updateQuiz, setQuiz, setQuizzes } = quizzesSlice.actions;
+    updateQuiz, setQuiz, setQuizzes, updateQuestion, addQuestion, setQuestion, setQuestions } = quizzesSlice.actions;
 
 export default quizzesSlice.reducer;

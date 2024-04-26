@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { KanbasState } from "../../../store";
 import * as client from "../client";
-import { setQuizzes, updateQuiz, addQuiz } from "../reducer";
-import { FaBan, FaCheckCircle } from "react-icons/fa";
+import { setQuizzes, updateQuiz, addQuiz, setQuestions } from "../reducer";
+import { FaBan, FaCheckCircle, FaPlus, FaSearch } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Tabs, Tab } from "react-bootstrap";
 import Editor from 'react-simple-wysiwyg';
@@ -23,47 +23,101 @@ function QuizEditor() {
     let currQuiz = useSelector((state: KanbasState) =>
         state.quizzesReducer.quiz);
     
+    const question = useSelector((state: KanbasState) =>
+        state.quizzesReducer.question);
+
+    const qList = useSelector((state: KanbasState) => state.quizzesReducer.questions);
+
     if(typeof quizId !== 'undefined'){
-    currQuiz = quizList.find(
-        (quiz) => quiz.qid === quizId);
+        currQuiz = quizList.find((quiz) => quiz.qid === quizId);
     }
 
+
     const [quiz, setQuizDetails] = useState<any>(currQuiz);
+    const [isQEditor, setQEditor] = useState(false);
+    const [selectedType, setSelectedType] = useState('Multiple Choice');
+    const [currQuestion, setcurrQuestion] = useState(question);
+    const [newQuestionList, setNewQuestionList] = useState<any>([]);
+    const [choices, setChoices] = useState<string[]>(['', '', '', '']);
+    const [inputsFB, setInputsFB] = useState<string[]>([]);
+    const [questionsList, setQuestionsList] = useState(qList);
+    const [qIds, setQIds] = useState(currQuiz.questions);
     
-    const calculatePoints = (questions: any) => {
+    const addInputFieldFB = () => {
+        setInputsFB([...inputsFB, '']);
+    };
+    
+    const handleInputChange = (index: any, value: any) => {
+        const updatedInputs = [...inputsFB];
+        updatedInputs[index] = value;
+        setInputsFB(updatedInputs);
+      };
+
+    const handleChoicesChange = (index: any, event: any) => {
+        const newChoices = [...choices];
+        newChoices[index] = event.target.value;
+        setChoices(newChoices);
+      };
+    
+
+    //TODO: Update logic
+    const calculatePoints = (currQ: any) => {
         let points = 0;
-        questions.forEach((question: any) => {
+        currQ.map((question: any) => {
             points += question.points;
         });
         return points;
     }
-
-    const handleAddQuiz = (isPublished: any) => {
-        const newQuiz = { ...quiz, isPublished: isPublished, points: calculatePoints(quiz.questions)};
+    //TODO: API post questions along with quiz
+    const handleAddQuiz = async (isPublished: any) => {
+        const newQuiz = { ...quiz, isPublished: isPublished, points: calculatePoints([...questionsList, ...newQuestionList ])};
         if (isPublished) {
-            client.createQuiz(courseId, newQuiz).then(() => {
+            const questionPromises = newQuestionList.map(async (q: any) => {
+                const response = await client.createQuestion(q);
+                return response.questionId;
+            });
+    
+            const questionIds = await Promise.all(questionPromises);
+            client.createQuiz(courseId, { ...newQuiz, questions: [...qIds, ...questionIds] }).then(() => {
                 dispatch(addQuiz(newQuiz));
                 navigate(`/Kanbas/Courses/${courseId}/Quizzes/`);
             });
         } else {
-            client.createQuiz(courseId, newQuiz).then((response: any) => {
-                console.log("here",response);
+            const questionPromises = newQuestionList.map(async (q: any) => {
+                const response = await client.createQuestion(q);
+                return response.questionId;
+            });
+    
+            const questionIds = await Promise.all(questionPromises);
+            client.createQuiz(courseId, { ...newQuiz, questions: [...qIds, ...questionIds] }).then((response: any) => {
                 dispatch(addQuiz(newQuiz));
                 navigate(`/Kanbas/Courses/${courseId}/Quiz/${response.qid}`);
             });
         }
     };
 
-    const handleUpdateQuiz = (isPublished: any) => {
-        const updatedQuiz = { ...quiz, isPublished: isPublished, points: calculatePoints(quiz.questions)};
+    
+    const handleUpdateQuiz = async (isPublished: any) => {
+        const updatedQuiz = { ...quiz, isPublished: isPublished, points: calculatePoints([...questionsList, ...newQuestionList ])};
         if (isPublished) {
-            client.updateQuiz(updatedQuiz).then(() => {
+            const questionPromises = newQuestionList.map(async (q: any) => {
+                const response = await client.createQuestion(q);
+                return response.questionId;
+            });
+    
+            const questionIds = await Promise.all(questionPromises);
+            client.updateQuiz({...updatedQuiz, questions: [...qIds, ...questionIds] }).then(() => {
                 dispatch(updateQuiz(updateQuiz));
                 navigate(`/Kanbas/Courses/${courseId}/Quizzes/`);
             });
         } else {
-            client.updateQuiz(updatedQuiz).then((response) => {
-                console.log(response);
+            const questionPromises = newQuestionList.map(async (q: any) => {
+                const response = await client.createQuestion(q);
+                return response.questionId;
+            });
+    
+            const questionIds = await Promise.all(questionPromises);
+            client.updateQuiz({...updatedQuiz, questions: [...qIds, ...questionIds] }).then((response) => {
                 dispatch(updateQuiz(updatedQuiz));
                 navigate(`/Kanbas/Courses/${courseId}/Quiz/${quizId}}`);
             });
@@ -82,12 +136,49 @@ function QuizEditor() {
         navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
     }
 
+    const handleNewQuestion = () => {
+        if (isQEditor) {
+            setQEditor(!isQEditor);
+            setcurrQuestion(question);
+        } else {
+            setQEditor(!isQEditor);
+        } 
+    }
+
+    const handleOnChangeSelectedType = (currType: any) => {
+        setSelectedType(currType);
+        setcurrQuestion({ ...question, question_type: currType });
+        if (currType === 'True False') {
+            setChoices(['True', 'False']);
+        }
+    }
+
+    const handleQuestionCancel = () => {
+        setcurrQuestion(question);
+        setNewQuestionList(qList);
+        setChoices(['', '', '', '']);
+        setInputsFB([]);
+        setQEditor(!isQEditor);
+    }
+
+    const handleQuestionSave = () => {
+        const currQ = { ...currQuestion, options: choices, blanks: inputsFB }
+        setNewQuestionList([...newQuestionList , currQ]);
+        setcurrQuestion(question);
+        setChoices(['', '', '', '']);
+        setInputsFB([]);
+    }
+
     useEffect(() => {
         client.findQuizzesForCourse(courseId)
             .then((quizzes) =>
                 dispatch(setQuizzes(quizzes))
-            );
-    }, [courseId, dispatch, quizId]);
+        );
+        client.findQuestionsByQuiz(quizId)
+            .then((q) =>
+                dispatch(setQuestions(q))
+        );
+    }, [courseId]); 
 
     return (
         <>
@@ -107,14 +198,12 @@ function QuizEditor() {
             <Tabs defaultActiveKey="details">
                 <Tab eventKey="details" title="Details">
                     <div>
-                        <br />
-                        
                         <div className="form-group mb-4">
                             <label htmlFor="quizName">Quiz Title</label>
                             <input type="text" className="form-control" id="quizName" defaultValue={quiz?.title} onChange={(e) => setQuizDetails({ ...quiz, title: e.target.value })} />
                         </div>
                         <p>Quiz Instructions:</p>
-                        <Editor value={quiz?.desc} onChange={(e) => setQuizDetails({ ...quiz, desc: e.target.value })} />
+                        <Editor id="quizDesc" value={quiz?.desc} onChange={(e) => setQuizDetails({ ...quiz, desc: e.target.value })} />
                         <br />
                         <div className="form-group row mb-4">
                             <label htmlFor="inputQuizType" className="col-sm-2 col-form-label text-sm-end">Quiz Type</label>
@@ -233,7 +322,104 @@ function QuizEditor() {
                     </div>
                 </Tab>
                 <Tab eventKey="questions" title="Questions">
+                    <div>
+                        {isQEditor && <>
+                            <select id="questionType" className="form-control" onChange={(e) => handleOnChangeSelectedType(e.target.value)}>
+                                <option value="Multiple Choice">Multiple Choice</option>
+                                <option value="True False">True False</option>
+                                <option value="Fill in the blanks">Fill in the blanks</option>
+                            </select>
+                            <br />
+                            {selectedType === 'Multiple Choice' && <>
+                                <label htmlFor="questionTitle">Title</label>
+                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required />
+                                <br />
+                                <label htmlFor="pointsQ">Points</label>
+                                <input type="number" className="form-control" id="pointsQ" placeholder="Enter Points" onChange={(e) => setcurrQuestion({ ...currQuestion, points: e.target.value })} aria-required />
+                                <br />
+                                <b>Question:</b>
+                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required />
+                                <br />
+                                <b>Choices:</b>
+                                <br />
+                                <input type="text" id="option 1" className="form-control" onChange={(e) => handleChoicesChange(0, e)} />
+                                <input type="radio" id="MC1" name="MC" onChange={(e) => setcurrQuestion({ ...currQuestion, correctChoiceIndex: 1 })} />
+                                <label className="form-check-label" htmlFor="MC1">Is Correct</label>
+                                <br />
+                                <input type="text" id="option 2" className="form-control" onChange={(e) => handleChoicesChange(1, e)} />
+                                <input type="radio" id="MC2" name="MC" onChange={(e) => setcurrQuestion({ ...currQuestion, correctChoiceIndex: 2 })} />
+                                <label className="form-check-label" htmlFor="MC2">Is Correct</label>
+                                <br />
+                                <input type="text" id="option 3" className="form-control" onChange={(e) => handleChoicesChange(2, e)} />
+                                <input type="radio" id="MC3" name="MC" onChange={(e) => setcurrQuestion({ ...currQuestion, correctChoiceIndex: 3 })} />
+                                <label className="form-check-label" htmlFor="MC3">Is Correct</label>
+                                <br />
+                                <input type="text" id="option 4" className="form-control" onChange={(e) => handleChoicesChange(3, e)} />
+                                <input type="radio" id="MC4" name="MC" onChange={(e) => setcurrQuestion({ ...currQuestion, correctChoiceIndex: 4 })} />
+                                <label className="form-check-label" htmlFor="MC4">Is Correct</label>
+                                <br />
+                            </>
+                            }
 
+                            {selectedType === 'True False' && <>
+                                <label htmlFor="questionTitle">Title</label>
+                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required/>
+                                <br />
+                                <label htmlFor="pointsQ">Points</label>
+                                <input type="number" className="form-control" id="pointsQ" placeholder="Enter Points" onChange={(e) => setcurrQuestion({ ...currQuestion, points: e.target.value })} aria-required />
+                                <br />
+                                <b>Question:</b>
+                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required/>
+                                <br />
+                                <b>Choices:</b>
+                                <br />
+                                <input type="text" id="option 1" className="form-control" value={"True"} disabled />
+                                <input type="radio" id="TF1" name="TF" onChange={(e) => setcurrQuestion({ ...currQuestion, correctChoiceIndex: 0 })} />
+                                <label className="form-check-label" htmlFor="TF1">Is Correct</label>
+                                <br />
+                                <input type="text" id="option 2" className="form-control" value={"False"} disabled />
+                                <input type="radio" id="TF2" name="TF" onChange={(e) => setcurrQuestion({ ...currQuestion, correctChoiceIndex: 1 })} />
+                                <label className="form-check-label" htmlFor="TF2">Is Correct</label>
+                                <br />
+                            </>}
+
+                            {selectedType === 'Fill in the blanks' && <>
+                                <label htmlFor="questionTitle">Title</label>
+                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required/>
+                                <br />
+                                <label htmlFor="pointsQ">Points</label>
+                                <input type="number" className="form-control" id="pointsQ" placeholder="Enter Points" onChange={(e) => setcurrQuestion({ ...currQuestion, points: e.target.value })} aria-required/>
+                                <br />
+                                <b>Question:</b>
+                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required/>
+                                <br />
+                                <div>
+                                    <button onClick={addInputFieldFB}>Add Input Field</button>
+                                    {inputsFB.map((input, index) => (
+                                        <input
+                                            key={index}
+                                            type="text"
+                                            value={input}
+                                            onChange={(e) => handleInputChange(index, e.target.value)}
+                                            placeholder={`Input ${index + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            </>}
+                            <br />
+                            <button className="btn btn-secondary" onClick={() => handleQuestionCancel()}>Cancel</button>
+                            <button className="btn btn-danger" onClick={() => handleQuestionSave()}>Save</button>
+
+                        </>
+                        }
+                        <div>
+                            <button className="btn btn-secondary" onClick={() => handleNewQuestion()}><FaPlus />New Question</button>
+                            <button className="btn btn-secondary" ><FaPlus />New Question Group</button>
+                            <button className="btn btn-secondary" ><FaSearch />Find Questions</button>
+                        </div>
+
+                        
+                    </div>
                 </Tab>
             </Tabs>
             <hr />
