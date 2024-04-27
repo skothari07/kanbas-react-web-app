@@ -33,7 +33,7 @@ function QuizEditor() {
     }
 
 
-    const [quiz, setQuizDetails] = useState<any>(currQuiz);
+    const [quiz, setQuizDetails] = useState<any>(currQuiz || {});
     const [isQEditor, setQEditor] = useState(false);
     const [selectedType, setSelectedType] = useState('Multiple Choice');
     const [currQuestion, setcurrQuestion] = useState(question);
@@ -63,14 +63,16 @@ function QuizEditor() {
     //TODO: Update logic
     const calculatePoints = (currQ: any) => {
         let points = 0;
+        // eslint-disable-next-line array-callback-return
         currQ.map((question: any) => {
-            points += question.points;
+            points += parseFloat(question.points); // or parseInt(question.points)
         });
         return points;
     }
+    
     //TODO: API post questions along with quiz
     const handleAddQuiz = async (isPublished: any) => {
-        const newQuiz = { ...quiz, isPublished: isPublished, points: calculatePoints([...questionsList, ...newQuestionList ])};
+        const newQuiz = { ...quiz, isPublished: isPublished, points: calculatePoints([...newQuestionList ])};
         if (isPublished) {
             const questionPromises = newQuestionList.map(async (q: any) => {
                 const response = await client.createQuestion(q);
@@ -168,16 +170,21 @@ function QuizEditor() {
         setChoices(['', '', '', '']);
         setInputsFB([]);
     }
+    const getQuestions = async () => {
+        const questionPromises = quiz.questions.map(async (q: any) => {
+            const response = await client.findQuestionById(q);
+            return response.data;
+        });
+        const questions = await Promise.all(questionPromises);
+        dispatch(setQuestions(questions));
+    }
 
     useEffect(() => {
         client.findQuizzesForCourse(courseId)
             .then((quizzes) =>
                 dispatch(setQuizzes(quizzes))
         );
-        client.findQuestionsByQuiz(quizId)
-            .then((q) =>
-                dispatch(setQuestions(q))
-        );
+        getQuestions();
     }, [courseId]); 
 
     return (
@@ -363,13 +370,13 @@ function QuizEditor() {
 
                             {selectedType === 'True False' && <>
                                 <label htmlFor="questionTitle">Title</label>
-                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required/>
+                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required />
                                 <br />
                                 <label htmlFor="pointsQ">Points</label>
                                 <input type="number" className="form-control" id="pointsQ" placeholder="Enter Points" onChange={(e) => setcurrQuestion({ ...currQuestion, points: e.target.value })} aria-required />
                                 <br />
                                 <b>Question:</b>
-                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required/>
+                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required />
                                 <br />
                                 <b>Choices:</b>
                                 <br />
@@ -385,13 +392,13 @@ function QuizEditor() {
 
                             {selectedType === 'Fill in the blanks' && <>
                                 <label htmlFor="questionTitle">Title</label>
-                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required/>
+                                <input type="text" id="questionTitle" className="form-control" onChange={(e) => setcurrQuestion({ ...currQuestion, title: e.target.value })} aria-required />
                                 <br />
                                 <label htmlFor="pointsQ">Points</label>
-                                <input type="number" className="form-control" id="pointsQ" placeholder="Enter Points" onChange={(e) => setcurrQuestion({ ...currQuestion, points: e.target.value })} aria-required/>
+                                <input type="number" className="form-control" id="pointsQ" placeholder="Enter Points" onChange={(e) => setcurrQuestion({ ...currQuestion, points: e.target.value })} aria-required />
                                 <br />
                                 <b>Question:</b>
-                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required/>
+                                <Editor id="questionDesc" value={currQuestion?.description} onChange={(e) => setcurrQuestion({ ...currQuestion, description: e.target.value })} aria-required />
                                 <br />
                                 <div>
                                     <button onClick={addInputFieldFB}>Add Input Field</button>
@@ -417,6 +424,20 @@ function QuizEditor() {
                             <button className="btn btn-secondary" ><FaPlus />New Question Group</button>
                             <button className="btn btn-secondary" ><FaSearch />Find Questions</button>
                         </div>
+                        <br/>
+                        <ul style={{ listStyleType: "none" }}>
+                            {quiz.questions.map((question: any, index: number) => (
+                                <li key={index} className="grey-border question-box-margin">
+                                    <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: "lightgray" }}>
+                                        <h4 className="m-2">{question}</h4>
+                                    </div>
+                                    <div className="question-box" style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <button className="btn btn-danger float-end" onClick={() => navigate(`/Kanbas/Courses/${courseId}/Quizzes/edit/${quizId}/question/${question}`)}>Edit</button>
+                                        <br/>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
 
                         
                     </div>

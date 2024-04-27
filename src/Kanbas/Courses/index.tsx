@@ -14,6 +14,7 @@ import axios from "axios";
 import Quizzes from "./Quiz";
 import QuizDetails from "./Quiz/Details";
 import QuizPreview from "./Quiz/Preview";
+import EditQuestion from "./Quiz/Editor/EditQuestion";
 axios.defaults.withCredentials = true;
 
 function Courses() {
@@ -64,6 +65,7 @@ function Courses() {
                         <Route path="Quizzes/create" element={<QuizEditor />} />\
                         <Route path="Quizzes/edit/:quizId" element={<QuizEditor />} />
                         <Route path="Quizzes/preview/:quizId" element={<QuizPreview />} />
+                        <Route path="Quizzes/edit/:quizId/question/:questionId" element={<EditQuestion />} />
                         <Route path="Grades" element={<Grades />} />
                     </Routes>
                 </div>
