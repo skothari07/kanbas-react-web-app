@@ -12,9 +12,6 @@ function QuizPreview() {
     
     const currQuiz = useSelector((state: KanbasState) =>
         state.quizzesReducer.quiz);
-    
-    const currQuestion = useSelector((state: KanbasState) =>
-        state.quizzesReducer.question);
 
     const questionList = useSelector((state: KanbasState) => state.quizzesReducer.questions);
 
@@ -29,6 +26,10 @@ function QuizPreview() {
         const questions = await Promise.all(questionPromises);
         setQuestionsList(questions)
     }
+    const handleQuestionCancel = () => {
+        navigate(`/Kanbas/Courses/${courseId}/Quiz/${quizId}`);
+    }
+
     useEffect(() => {
         client.findQuizById(quizId)
             .then((q) => {
@@ -84,6 +85,8 @@ function QuizPreview() {
                     </div>
                 </div>
             ))}
+            <button className="btn btn-secondary" onClick={() => handleQuestionCancel()}>Cancel</button>
+            <button className="btn btn-danger">Save</button>
         </>
     );
 }
