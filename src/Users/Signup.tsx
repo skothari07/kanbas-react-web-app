@@ -11,6 +11,7 @@ export default function Signup() {
     const signup = async () => {
         try {
             const response = await client.signup(user);
+            console.log(response);
             login();
             setUser(response);
             navigate("/Kanbas/Account/Profile");
